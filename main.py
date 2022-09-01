@@ -1,5 +1,7 @@
 from vectorCalc import * 
 
+#https://www.youtube.com/watch?v=iJ9sez_HA2o
+
 satelites1 = [[(7, 0), 5], [(17, 0), 5], [(12, -5), 5]]
 satelites2 = [[(0, 3), 4], [(-3, 0), 2]]
 
