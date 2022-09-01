@@ -20,6 +20,26 @@ def makeForSat(sat):
 
     return [(amountX, amountY), dispoX + dispoY, res]
 
+
+def setInForm(sat): 
+    restX = 0
+    restX += -2 * sat[0][0]
+
+    restY = 0
+    restY += -2 * sat[0][1]
+
+    behind = 0
+    behind += sat[0][0] ** 2
+    behind += sat[0][1] ** 2
+
+    return [(restX, restY), behind]
+
+def substractTwoForms(form1, form2): 
+    return [(form1[0][0] - form2[0][0], form1[0][1] - form2[0][1]), form1[1] - form2[1]]
+
+def getValueForY(sat):
+    print(sat)
+
 def getConnections(ret1, ret2): 
     res1 = ret1[2]
     res2 = ret2[2]
@@ -34,8 +54,10 @@ def getConnections(ret1, ret2):
     resRes = resFinal / yRest
     resX = -xRest / yRest
 
-    print([resX, resRes])
+    print([resRes, resX])
+    inThere = "x^2 + " + str(resX) + "x^2" + str(resRes) + "x + " + str(resRes ** 2)
+    print(inThere)
 
-    
 
-getConnections(makeForSat(satelites2[0]), makeForSat(satelites2[1]))
+print(substractTwoForms(setInForm(satelites2[0]), setInForm(satelites2[1])))
+#getConnections(makeForSat(satelites1[0]), makeForSat(satelites1[1]))
