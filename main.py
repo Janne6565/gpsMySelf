@@ -39,27 +39,12 @@ def setInForm(sat):
 def substractTwoForms(form1, form2): 
     return [(form1[0][0] - form2[0][0], form1[0][1] - form2[0][1]), form1[1] - form2[1]]
 
-def getValueForY(sat):
-    print(sat)
+def getValueForY(sat1, sat2):
+    pass
 
-def getConnections(ret1, ret2): 
-    res1 = ret1[2]
-    res2 = ret2[2]
-    xRest = ret1[0][0] - ret2[0][0]
-    yRest = ret1[0][1] - ret2[0][1]
-
-    xDispo = ret1[1] - ret2[1]
-
-    resFinal = res1 - res2
-
-
-    resRes = resFinal / yRest
-    resX = -xRest / yRest
-
-    print([resRes, resX])
-    inThere = "x^2 + " + str(resX) + "x^2" + str(resRes) + "x + " + str(resRes ** 2)
-    print(inThere)
-
-
-print(substractTwoForms(setInForm(satelites2[0]), setInForm(satelites2[1])))
+sateliteForms = [setInForm(satelites2[0]), setInForm(satelites2[1])]
+results = [satelites2[0][1]**2, satelites2[1][1] ** 2]
+print(results)
+print(sateliteForms)
+subed = substractTwoForms(sateliteForms[0], sateliteForms[1])
 #getConnections(makeForSat(satelites1[0]), makeForSat(satelites1[1]))
