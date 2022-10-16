@@ -4,6 +4,19 @@ import struct, time
 import matplotlib.pyplot as plt
 import sounddevice as sd
 
+
+def showStuffInit(): 
+    fig, (ax,ax1) = plt.subplots(2)
+    x_fft = np.linspace(0, RATE, CHUNK)
+    x = np.arange(0,2*CHUNK,2)
+    line, = ax.plot(x, np.random.rand(CHUNK),'r')
+    line_fft, = ax1.semilogx(x_fft, np.random.rand(CHUNK), 'b')
+    ax.set_ylim(-2000,2000)
+    ax.ser_xlim = (0,CHUNK)
+    ax1.set_xlim(20,RATE/2)
+    ax1.set_ylim(0,0.2)
+    fig.show()
+
 def drawData(data): 
     line.set_ydata(data)
     fftData = np.abs(np.fft.fft(data))*2/(11000*CHUNK)
@@ -17,7 +30,7 @@ def makePos(num):
     else: 
         return num
 
-CHUNK = 1024 * 1
+CHUNK = 1024 * 2
 FORMAT = pa.paInt16
 CHANNELS = 1
 RATE = 44100 # in Hz
@@ -34,21 +47,17 @@ stream = p.open(
 )
 
 
-
-fig, (ax,ax1) = plt.subplots(2)
-x_fft = np.linspace(0, RATE, CHUNK)
-x = np.arange(0,2*CHUNK,2)
-line, = ax.plot(x, np.random.rand(CHUNK),'r')
-line_fft, = ax1.semilogx(x_fft, np.random.rand(CHUNK), 'b')
-ax.set_ylim(-2000,2000)
-ax.ser_xlim = (0,CHUNK)
-ax1.set_xlim(20,RATE/2)
-ax1.set_ylim(0,0.2)
-fig.show()
+freq = [400, 800, 1200]
 
 while 1:
     timeBefore = time.time_ns()
     data = stream.read(CHUNK)
     dataInt = struct.unpack(str(CHUNK) + 'h', data)
-    print(makePos(dataInt[800]))
-    drawData(dataInt)
+    found = []
+    for i in range(len(freq)): 
+        freqToCheck = freq[i]
+        val = makePos(dataInt[freqToCheck])
+        if (val >= 200): 
+            found.append(freqToCheck)
+    #drawData(dataInt)
+    print(found)
