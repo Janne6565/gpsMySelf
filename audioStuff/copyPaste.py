@@ -52,9 +52,15 @@ if __name__ == '__main__':
     t = np.arange(sample_rate) / np.double(sample_rate) # in seconds
     # JLD: with 1000 samples, a sine at 441Hz leads to a DFT with only one
     # non-nul component:
-    sine_wave = np.sin(2*np.pi*441*t)[:1000]  
-    freqs, results = goertzel(sine_wave, sample_rate, 0, 22049)
-    print(np.array(results))
+    sine_wave1 = np.sin(2*np.pi*441*t)[:1000]
+    sine_wave2 = np.sin(2*np.pi*220*t)[:1000]
+    sin = []
+    for i in range(len(sine_wave1)): 
+        sin.append(sine_wave1[i] + sine_wave2[i] * 0.3)
+    sine_wave = np.array(sin)
+
+    freqs, results = goertzel(sine_wave, sample_rate, 0, 1000)
+    print(freqs)
     pylab.figure()
     pylab.clf()
     pylab.plot(np.array(freqs),
