@@ -19,13 +19,22 @@ def getVals(freqs):
     freqs, results = goertzel.goertzel(inputt, RATE, (freqs[0], freqs[1]))
     return freqs, results
 
-#x = np.linspace(1, 2, 3)
-#y = np.linspace(1, 2, 3)
-#plt.ion()
-#fig = plt.figure()
-#ax = fig.add_subplot(111)
-#ax.set_ylim(100)
-#line1, = ax.plot(x, y, 'r-')
+def getValueFromVal(res, microphoneFactor): 
+    return res[:,2] / microphoneFactor
+
+def initDrawing():
+    x = np.linspace(1, 2, 3)
+    y = np.linspace(1, 2, 3)
+    plt.ion()
+    fig = plt.figure()
+    ax = fig.add_subplot(111)
+    ax.set_ylim(100)
+    line1, = ax.plot(x, y, 'r-')
+
+def drawValue(value):
+    line1.set_ydata(value)
+    fig.canvas.draw()
+    fig.canvas.flush_events()
 
 microphoneFactor = 100000000 # Microphone mutliplys Volume
 sensitivity = 10
