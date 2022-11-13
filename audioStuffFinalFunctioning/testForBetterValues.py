@@ -1,11 +1,11 @@
-import goertzel, pyaudio, time, Important, logging
+import goertzel, pyaudio, time, Important, logging, progressbar
 from threading import Thread
 import numpy as np
 import matplotlib.pyplot as plt
 import pysine
 
 def threadPlaySound(freqsss, timePlay):
-    time.sleep(0.4)
+    time.sleep(1)
     pysine.sine(frequency=freqsss, duration=timePlay)
     print("Sound Played")
 
@@ -28,14 +28,14 @@ def threadListenSound(freqs, threshhold):
 
 #time.sleep(1)
 
-threadPlayer = Thread(target=threadPlaySound, args=((600, 1.0)))
+threadPlayer = Thread(target=threadPlaySound, args=((700, 4.0)))
 
 
 #AUDIO INPUT
 FORMAT = pyaudio.paInt16
 CHANNELS = 1
-RATE = 44100
-CHUNK = RATE * 4
+RATE = 60000 # 44100
+CHUNK = RATE * 5
 realChunk = 1024
 
 
@@ -51,20 +51,23 @@ print("Start recording")
 hugeChunk = stream.read(CHUNK)
 print("End recording")
 
-freqs = (600, 600)
+freqs = (700, 700)
 threshhold = 4 * 10**8
+frameFoundAt = 0
 
-frameFoundAt = -1
+bar = progressbar.ProgressBar(max_value=CHUNK)
 
+val = True
 for i in range(CHUNK - realChunk):
+    bar.update(i)
     chunkRightNow = hugeChunk[i:i+realChunk]
     freqss, value = Important.calculateFromChunk(chunkRightNow, freqs)
     value = value[0][2]
-    if (value > threshhold):
+    if (value > threshhold and val):
         frameFoundAt = i
         print("Found on Chunk from frame: " + str(i) + " to: " + str(i + realChunk))
-        break
+        val = False
 
 
-timeDistance = frameFoundAt / RATE
+timeDistance = frameFoundAt / RATE # = 0
 print(timeDistance)
