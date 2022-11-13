@@ -19,42 +19,14 @@ def getVals(freqs):
     freqs, results = goertzel.goertzel(inputt, RATE, (freqs[0], freqs[1]))
     return freqs, results
 
-#x = np.linspace(1, 2, 3)
-#y = np.linspace(1, 2, 3)
-#plt.ion()
-#fig = plt.figure()
-#ax = fig.add_subplot(111)
-#ax.set_ylim(100)
-#line1, = ax.plot(x, y, 'r-')
+if __name__ == "__main__": 
+    microphoneFactor = 100000000 # Microphone mutliplys Volume
+    sensitivity = 10
+    print("Running The code")
+    while True:
+        freqs, results = getVals((800, 800))
+        res = np.array(results)[:,2]
+        realResult = res / microphoneFactor
+        if (realResult >= sensitivity):
+            print("Called")
 
-microphoneFactor = 100000000 # Microphone mutliplys Volume
-sensitivity = 10
-
-while True:
-    freqs, results = getVals((800, 800))
-    res = np.array(results)[:,2]
-    realResult = res / microphoneFactor
-    if (realResult >= sensitivity):
-        print("Called")
-    #line1.set_ydata(y)
-    #fig.canvas.draw()
-    #fig.canvas.flush_events()
-
-
-# Measure Time
-#timeBefore = time.time()
-#print(timeBefore)
-#for i in range(1000):
-#    inputt = stream.read(CHUNK)
-#    if (i % 100 == 0):
-#        print(i)
-#
-#timeAfter = time.time()
-#
-#
-#print((timeAfter-timeBefore) / 1000)
-
-#print([results[0][0], results[0][1], results[0][2]])
-#plt.plot([1, 2, 3], [results[0][0], results[0][1], results[0][2]], 'ro')
-#plt.axis([1, 3, 0, 1000000])
-#plt.show()
