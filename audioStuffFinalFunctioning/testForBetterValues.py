@@ -4,8 +4,22 @@ import numpy as np
 import matplotlib.pyplot as plt
 import pysine
 
+time.sleep(3)
+
+delay = 2
+frequency = 689
+threshhold = 70_000_000 # Long Distance falloff
+timeRecording = 3
+
+#AUDIO INPUT
+FORMAT = pyaudio.paInt16
+CHANNELS = 1
+RATE = 44100 # 44100
+CHUNK = RATE * (timeRecording + delay)
+realChunk = 1024
+
 def threadPlaySound(freqsss, timePlay):
-    time.sleep(1)
+    time.sleep(delay)
     pysine.sine(frequency=freqsss, duration=timePlay)
     print("Sound Played")
 
@@ -21,41 +35,30 @@ def threadListenSound(freqs, threshhold):
             return timeStart - timeNow
 
 
-#threadListener = threading.Thread(target=threadListenSound((796, 796), 10*10**20))
-#threadPlayer = threading.Thread(target=threadPlaySound(796.0, 1.0))
-#listenSoundThread = Thread(target=threadListenSound, args=((900, 900), 10**9))
-#listenSoundThread.start()
-
-#time.sleep(1)
-
-threadPlayer = Thread(target=threadPlaySound, args=((700, 4.0)))
-
-
-#AUDIO INPUT
-FORMAT = pyaudio.paInt16
-CHANNELS = 1
-RATE = 60000 # 44100
-CHUNK = RATE * 5
-realChunk = 1024
-
-
 audio = pyaudio.PyAudio()
 
 stream = audio.open(format=FORMAT, channels=CHANNELS,
                 rate=RATE, input=True,
-                frames_per_buffer=CHUNK)
+                frames_per_buffer=CHUNK, input_device_index=1)
 
+
+threadPlayer = Thread(target=threadPlaySound, args=((frequency, 1.0)))
 threadPlayer.start()
 
 print("Start recording")
 hugeChunk = stream.read(CHUNK)
 print("End recording")
 
-freqs = (700, 700)
-threshhold = 4 * 10**8
+freqs = (frequency, frequency)
+
 frameFoundAt = 0
 
 bar = progressbar.ProgressBar(max_value=CHUNK)
+
+searchTillEnd = False
+
+maxValue = 0
+frameMaxAt = 0
 
 val = True
 for i in range(CHUNK - realChunk):
@@ -63,11 +66,19 @@ for i in range(CHUNK - realChunk):
     chunkRightNow = hugeChunk[i:i+realChunk]
     freqss, value = Important.calculateFromChunk(chunkRightNow, freqs)
     value = value[0][2]
+    if (maxValue < value): 
+        maxValue = value
+        frameMaxAt = i
+
     if (value > threshhold and val):
         frameFoundAt = i
-        print("Found on Chunk from frame: " + str(i) + " to: " + str(i + realChunk))
-        val = False
+        if (searchTillEnd): 
+            print("Found on Chunk from frame: " + str(i) + " to: " + str(i + realChunk))
+            val = False
+        else: 
+             break
 
-
-timeDistance = frameFoundAt / RATE # = 0
-print(timeDistance)
+print("")
+timeDistance = frameFoundAt / RATE - delay# = 0
+print("Max Loudness Heard:", maxValue, "; at: ", frameMaxAt)
+print("Time heard: ", timeDistance)
