@@ -35,3 +35,6 @@ def calculateFromChunk(chunk, freqs):
 
 def getValueFromVal(res, microphoneFactor): 
     return res[:,2] / microphoneFactor
+
+if __name__ == "__main__": 
+    getAllSoundInputs()

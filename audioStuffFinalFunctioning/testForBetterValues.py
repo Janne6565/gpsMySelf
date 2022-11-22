@@ -1,61 +1,71 @@
-import goertzel, pyaudio, time, Important, logging, progressbar
+import goertzel, pyaudio, time, Important, logging, progressbar, pysine, wave
 from threading import Thread
 import numpy as np
 import matplotlib.pyplot as plt
-import pysine
-
-time.sleep(3)
 
 delay = 2
-frequency = 689
-threshhold = 70_000_000 # Long Distance falloff
+frequencyPlay = 775
+frequencyListen = 800
+threshhold = 70_000_000 # Long Distance falloff 474_923_015
+threshhold = 250_000_000
 timeRecording = 3
+timePlaying = 2
+velocity = 343 
+
 
 #AUDIO INPUT
 FORMAT = pyaudio.paInt16
 CHANNELS = 1
 RATE = 44100 # 44100
 CHUNK = RATE * (timeRecording + delay)
-realChunk = 1024
+realChunk = 1024 * 2
+timeSoundPlayedAt = -1
 
-def threadPlaySound(freqsss, timePlay):
-    time.sleep(delay)
-    pysine.sine(frequency=freqsss, duration=timePlay)
-    print("Sound Played")
-
-def threadListenSound(freqs, threshhold):
-    timeStart = time.time_ns() + 1 * 10 ** 9
-    while True: 
-        freqss, vals = Important.getVals(freqs)
-        vals = vals[0]
-        print(vals[2])
-        if (vals[2] > threshhold): 
-            timeNow = time.time_ns()
-            print((timeNow - timeStart) / 10**9)
-            return timeStart - timeNow
-
+windowSize = 1 / RATE
 
 audio = pyaudio.PyAudio()
+
+def writeToFile(fileName, chunk): 
+    wf = wave.open(fileName, 'wb')
+    wf.setnchannels(CHANNELS)
+    wf.setsampwidth(audio.get_sample_size(FORMAT))
+    wf.setframerate(RATE)
+    wf.writeframes(chunk)
+    wf.close()
+
+
+
 
 stream = audio.open(format=FORMAT, channels=CHANNELS,
                 rate=RATE, input=True,
                 frames_per_buffer=CHUNK, input_device_index=1)
 
 
-threadPlayer = Thread(target=threadPlaySound, args=((frequency, 1.0)))
+def threadPlaySound(freqsss, timePlay):
+    global timeSoundPlayedAt
+    time.sleep(delay)
+    timeSoundPlayedAt = time.time_ns()
+    pysine.sine(frequency=freqsss, duration=timePlay)
+    timeSoundPlayedAt = timeSoundPlayedAt
+    print("Sound Played")
+
+threadPlayer = Thread(target=threadPlaySound, args=((frequencyPlay, timePlaying)))
 threadPlayer.start()
 
 print("Start recording")
+timeRecordingStart = time.time_ns()
 hugeChunk = stream.read(CHUNK)
 print("End recording")
 
-freqs = (frequency, frequency)
+writeToFile("test.wav", hugeChunk)
+
+freqs = (frequencyListen, frequencyListen)
 
 frameFoundAt = 0
 
 bar = progressbar.ProgressBar(max_value=CHUNK)
 
-searchTillEnd = False
+searchTillEnd = True
 
 maxValue = 0
 frameMaxAt = 0
@@ -70,15 +80,24 @@ for i in range(CHUNK - realChunk):
         maxValue = value
         frameMaxAt = i
 
+
     if (value > threshhold and val):
-        frameFoundAt = i
+        frameFoundAt = i - realChunk
         if (searchTillEnd): 
             print("Found on Chunk from frame: " + str(i) + " to: " + str(i + realChunk))
             val = False
         else: 
              break
-
 print("")
-timeDistance = frameFoundAt / RATE - delay# = 0
-print("Max Loudness Heard:", maxValue, "; at: ", frameMaxAt)
-print("Time heard: ", timeDistance)
+timeDistance = frameFoundAt / RATE # = 0
+print(timeDistance)
+timeRec = timeRecordingStart + timeDistance
+timeSoundPlayedAt /= 1e+18
+timeRec /= 1e+18
+print("Time Based of recording: ", timeRec)
+print("Time Based of TimeSoundPlayed: ", timeSoundPlayedAt)
+print("Max Loudness Heard:", maxValue, "; at: ", frameMaxAt) # Use this line to get information about possible threshhold
+
+
+deltaTime = timeRec - timeSoundPlayedAt
+print("Distance Caclulated: ", deltaTime)

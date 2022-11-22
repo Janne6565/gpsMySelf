@@ -48,6 +48,7 @@ def goertzel(samples, sample_rate, *freqs):
         if k_end > window_size - 1: raise ValueError('frequency out of range %s' % k_end)
         bins = bins.union(range(k_start, k_end))
 
+    
     # For all the bins, calculate the DFT term
     n_range = range(0, window_size)
     freqs = []
