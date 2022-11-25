@@ -34,7 +34,13 @@ stream = p.open(
 # variable for plotting
 x = np.arange(0, 2 * CHUNK, 2)       # samples (waveform)
 xf = np.linspace(0, RATE, CHUNK)     # frequencies (spectrum)
-
+print(xf)
+count = 0
+for i in xf: 
+    if (780 < i < 820):
+        print(i)
+        print(count)
+    count += 1
 # create a line object with random data
 line, = ax1.plot(x, np.random.rand(CHUNK), '-', lw=2)
 
@@ -63,18 +69,16 @@ while True:
     # binary data
     data = stream.read(CHUNK)  
     # convert data to integers, make np array, then offset it by 127
-    wf_data = np.frombuffer(2 * data, dtype='h')  
+    wf_data = np.frombuffer(data, dtype='h')  
     data_int = np.array(wf_data, dtype='h')/140 + 255
     # create np array and offset by 128
-    data_np = np.array(data_int, dtype='b')[::2] + 128
     
-    line.set_ydata(data_np)
+    line.set_ydata(data_int)
     
     # compute FFT and update line
     yf = fft(data_int)
     realYData = np.abs(yf[0:CHUNK])  / (128 * CHUNK)
-
-    print(realYData[int(len(realYData) / CHUNK) * 800])
+    print(realYData[37])
 
     line_fft.set_ydata(realYData)
     
