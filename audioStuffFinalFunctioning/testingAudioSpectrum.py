@@ -1,3 +1,6 @@
+# Credits: https://www.youtube.com/watch?v=aQKX3mrDFoY 
+# Video über Audio Spektrum
+
 import pyaudio
 import os
 import struct
@@ -60,8 +63,8 @@ while True:
     # binary data
     data = stream.read(CHUNK)  
     # convert data to integers, make np array, then offset it by 127
-    data_int = struct.unpack(str(2 * CHUNK) + 'B', data)
-    
+    wf_data = np.frombuffer(2 * data, dtype='h')  
+    data_int = np.array(wf_data, dtype='h')/140 + 255
     # create np array and offset by 128
     data_np = np.array(data_int, dtype='b')[::2] + 128
     
