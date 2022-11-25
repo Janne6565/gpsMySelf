@@ -1,14 +1,14 @@
-import goertzel, pyaudio, time, Important, logging, progressbar, pysine, wave
+import goertzel, pyaudio, time, Important, logging, progressbar, pysine, wave, struct
 from threading import Thread
 import numpy as np
 import matplotlib.pyplot as plt
+from scipy.fftpack import fft
 
 delay = 2
 frequencyPlay = 775
 frequencyListen = 800
 threshhold = 70_000_000 # Long Distance falloff 474_923_015
 threshhold = 250_000_000
-timeRecording = 3
 timePlaying = 2
 velocity = 343 
 
@@ -17,7 +17,7 @@ velocity = 343
 FORMAT = pyaudio.paInt16
 CHANNELS = 1
 RATE = 44100 # 44100
-CHUNK = RATE * (timeRecording + delay)
+CHUNK = 1024 * 176 # RATE * (timeRecording + delay)
 realChunk = 1024 * 2
 timeSoundPlayedAt = -1
 
@@ -57,7 +57,6 @@ timeRecordingStart = time.time_ns()
 hugeChunk = stream.read(CHUNK)
 print("End recording")
 
-writeToFile("test.wav", hugeChunk)
 
 freqs = (frequencyListen, frequencyListen)
 
@@ -70,24 +69,50 @@ searchTillEnd = True
 maxValue = 0
 frameMaxAt = 0
 
-val = True
-for i in range(CHUNK - realChunk):
+trueChunk = struct.unpack(str(2 * CHUNK) + 'B', hugeChunk)
+chunkNumpy = np.array(trueChunk, dtype='B')[::2] + 128
+vals = []
+
+
+fig, (ax1, ax2) = plt.subplots(2, figsize=(15, 7))
+fig.show()
+xf = np.linspace(0, RATE, realChunk)     # frequencies (spectrum)
+line_fft, = ax2.semilogx(xf, np.random.rand(realChunk), '-', lw=2)
+ax2.set_xlim(20, RATE / 2)
+
+
+
+for i in range(0, CHUNK - realChunk): 
     bar.update(i)
-    chunkRightNow = hugeChunk[i:i+realChunk]
-    freqss, value = Important.calculateFromChunk(chunkRightNow, freqs)
-    value = value[0][2]
-    if (maxValue < value): 
-        maxValue = value
-        frameMaxAt = i
+    chunkRightNow = chunkNumpy[i:i+realChunk*2]
+    fftVals = np.abs(fft(chunkRightNow)[0:realChunk]) * 2 / (128 * realChunk)
+    line_fft.set_ydata(fftVals)
+    #fig.canvas.draw()
+    #fig.canvas.flush_events()
+    
+
+    
+
+# for i in range(CHUNK - realChunk):
+#     bar.update(i)
+#     chunkRightNow = hugeChunk[i:i+realChunk]
+#     data = struct.unpack(str(2 * realChunk) + 'B', chunkRightNow)
+#     print(data)
+#     if False:
+#         freqss, value = Important.calculateFromChunk(chunkRightNow, freqs)
+#         value = value[0][2]
+#         if (maxValue < value): 
+#             maxValue = value
+#             frameMaxAt = i
 
 
-    if (value > threshhold and val):
-        frameFoundAt = i - realChunk
-        if (searchTillEnd): 
-            print("Found on Chunk from frame: " + str(i) + " to: " + str(i + realChunk))
-            val = False
-        else: 
-             break
+#         if (value > threshhold and val):
+#             frameFoundAt = i - realChunk
+#             if (searchTillEnd): 
+#                 print("Found on Chunk from frame: " + str(i) + " to: " + str(i + realChunk))
+#                 val = False
+#             else: 
+#                 break
 print("")
 timeDistance = frameFoundAt / RATE # = 0
 print(timeDistance)
