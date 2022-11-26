@@ -34,6 +34,7 @@ stream = p.open(
 # variable for plotting
 x = np.arange(0, 2 * CHUNK, 2)       # samples (waveform)
 xf = np.linspace(0, RATE, CHUNK)     # frequencies (spectrum)
+print(max(xf))
 print(xf)
 count = 0
 for i in xf: 

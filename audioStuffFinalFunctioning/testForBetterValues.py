@@ -18,7 +18,7 @@ FORMAT = pyaudio.paInt16
 CHANNELS = 1
 RATE = 44100 # 44100
 CHUNK = 1024 * 176 # RATE * (timeRecording + delay)
-realChunk = 1024 * 2
+realChunk = int(1024 / 2)
 timeSoundPlayedAt = -1
 
 windowSize = 1 / RATE
@@ -46,7 +46,6 @@ def threadPlaySound(freqsss, timePlay):
     time.sleep(delay)
     timeSoundPlayedAt = time.time_ns()
     pysine.sine(frequency=freqsss, duration=timePlay)
-    timeSoundPlayedAt = timeSoundPlayedAt
     print("Sound Played")
 
 threadPlayer = Thread(target=threadPlaySound, args=((frequencyPlay, timePlaying)))
@@ -55,7 +54,10 @@ threadPlayer.start()
 print("Start recording")
 timeRecordingStart = time.time_ns()
 hugeChunk = stream.read(CHUNK)
+timeRecordingEnd = time.time_ns()
 print("End recording")
+
+timeTillRecordingRealStarted = ((timeRecordingEnd - timeRecordingStart) * 1e-9) - (CHUNK / RATE)
 
 
 freqs = (frequencyListen, frequencyListen)
@@ -69,8 +71,8 @@ searchTillEnd = True
 maxValue = 0
 frameMaxAt = 0
 
-trueChunk = struct.unpack(str(2 * CHUNK) + 'B', hugeChunk)
-chunkNumpy = np.array(trueChunk, dtype='B')[::2] + 128
+wf_data = np.frombuffer(hugeChunk, dtype='h')  
+data_int = np.array(wf_data, dtype='h')/140 + 255
 vals = []
 
 
@@ -81,48 +83,47 @@ line_fft, = ax2.semilogx(xf, np.random.rand(realChunk), '-', lw=2)
 ax2.set_xlim(20, RATE / 2)
 
 
+indexOfFrequency = int((frequencyListen - (frequencyListen % (RATE / realChunk))) / (RATE/realChunk))
+print(indexOfFrequency)
+
+
+frameFoundAt = -1
+threshhold = 0.01
+arr = []
 
 for i in range(0, CHUNK - realChunk): 
     bar.update(i)
-    chunkRightNow = chunkNumpy[i:i+realChunk*2]
+    chunkRightNow = data_int[i:i+realChunk*2]
     fftVals = np.abs(fft(chunkRightNow)[0:realChunk]) * 2 / (128 * realChunk)
     line_fft.set_ydata(fftVals)
-    #fig.canvas.draw()
-    #fig.canvas.flush_events()
-    
+    value = fftVals[indexOfFrequency]
+    arr.append(fftVals[indexOfFrequency])
 
-    
+    if (value > threshhold):
+        frameFoundAt = i
+        print("Found on ", i)
+        break
+    if False: # If you want to see the Data on a graph (very slow)
+        fig.canvas.draw()
+        fig.canvas.flush_events()
 
-# for i in range(CHUNK - realChunk):
-#     bar.update(i)
-#     chunkRightNow = hugeChunk[i:i+realChunk]
-#     data = struct.unpack(str(2 * realChunk) + 'B', chunkRightNow)
-#     print(data)
-#     if False:
-#         freqss, value = Important.calculateFromChunk(chunkRightNow, freqs)
-#         value = value[0][2]
-#         if (maxValue < value): 
-#             maxValue = value
-#             frameMaxAt = i
+print("Max value:", max(arr))
 
+print("TimeTillRecordingRealStarted:",timeTillRecordingRealStarted)
+timeDistance = ((frameFoundAt / RATE) + timeTillRecordingRealStarted) * 1e+9
+print("TimeDistance:", timeDistance)
 
-#         if (value > threshhold and val):
-#             frameFoundAt = i - realChunk
-#             if (searchTillEnd): 
-#                 print("Found on Chunk from frame: " + str(i) + " to: " + str(i + realChunk))
-#                 val = False
-#             else: 
-#                 break
-print("")
-timeDistance = frameFoundAt / RATE # = 0
-print(timeDistance)
-timeRec = timeRecordingStart + timeDistance
-timeSoundPlayedAt /= 1e+18
-timeRec /= 1e+18
-print("Time Based of recording: ", timeRec)
-print("Time Based of TimeSoundPlayed: ", timeSoundPlayedAt)
-print("Max Loudness Heard:", maxValue, "; at: ", frameMaxAt) # Use this line to get information about possible threshhold
+timeUntilSoundPlayed = timeSoundPlayedAt - timeRecordingStart
+print("TimeUntilSoundPlayed", timeUntilSoundPlayed)
+
+timeRec = timeDistance - timeUntilSoundPlayed
+print("TimeRec", timeRec)
 
 
-deltaTime = timeRec - timeSoundPlayedAt
-print("Distance Caclulated: ", deltaTime)
+relativeTime = abs(timeRec) * 1e-9
+
+print("Relative Time: ", relativeTime)
+
+
+distance = relativeTime * velocity
+print("Distance: ", distance)
