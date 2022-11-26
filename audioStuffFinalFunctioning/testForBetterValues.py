@@ -7,8 +7,6 @@ from scipy.fftpack import fft
 delay = 2
 frequencyPlay = 775
 frequencyListen = 800
-threshhold = 70_000_000 # Long Distance falloff 474_923_015
-threshhold = 250_000_000
 timePlaying = 2
 velocity = 343 
 
@@ -49,7 +47,7 @@ def threadPlaySound(freqsss, timePlay):
     print("Sound Played")
 
 
-def getDistanceToSpeaker(STREAM, CHUNK, REALCHUNK, FREQUENCYPLAY, TIMEPLAYING, DEBUG, VELOCITY):
+def getDistanceToSpeaker(STREAM, CHUNK, REALCHUNK, FREQUENCYPLAY, TIMEPLAYING, DEBUG, VELOCITY, THRESHHOLD):
     threadPlayer = Thread(target=threadPlaySound, args=((FREQUENCYPLAY, TIMEPLAYING)))
     threadPlayer.start()
 
@@ -69,20 +67,19 @@ def getDistanceToSpeaker(STREAM, CHUNK, REALCHUNK, FREQUENCYPLAY, TIMEPLAYING, D
     readData = np.array(readData, dtype='h')/140 + 255
     vals = []
 
-    indexOfFrequency = int((frequencyListen - (frequencyListen % (RATE / realChunk))) / (RATE/realChunk))
+    indexOfFrequency = int((frequencyListen - (frequencyListen % (RATE / REALCHUNK))) / (RATE/REALCHUNK))
 
     frameFoundAt = -1
-    threshhold = 0.01
     arr = []
 
-    for i in range(0, CHUNK - realChunk): 
+    for i in range(0, CHUNK - REALCHUNK): 
         bar.update(i)
-        chunk = readData[i:i+realChunk*2]
-        realValues = np.abs(fft(chunk)[0:realChunk]) * 2 / (128 * realChunk)
+        chunk = readData[i:i+REALCHUNK*2]
+        realValues = np.abs(fft(chunk)[0:REALCHUNK]) * 2 / (128 * REALCHUNK)
         valueOfFrequency = realValues[indexOfFrequency]
         arr.append(realValues[indexOfFrequency])
 
-        if (valueOfFrequency > threshhold):
+        if (valueOfFrequency > THRESHHOLD):
             frameFoundAt = i
             break
 
