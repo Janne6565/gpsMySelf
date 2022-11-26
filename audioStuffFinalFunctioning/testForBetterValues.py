@@ -48,82 +48,59 @@ def threadPlaySound(freqsss, timePlay):
     pysine.sine(frequency=freqsss, duration=timePlay)
     print("Sound Played")
 
-threadPlayer = Thread(target=threadPlaySound, args=((frequencyPlay, timePlaying)))
-threadPlayer.start()
 
-print("Start recording")
-timeRecordingStart = time.time_ns()
-hugeChunk = stream.read(CHUNK)
-timeRecordingEnd = time.time_ns()
-print("End recording")
+def getDistanceToSpeaker(STREAM, CHUNK, REALCHUNK, FREQUENCYPLAY, TIMEPLAYING, DEBUG, VELOCITY):
+    threadPlayer = Thread(target=threadPlaySound, args=((FREQUENCYPLAY, TIMEPLAYING)))
+    threadPlayer.start()
 
-timeTillRecordingRealStarted = ((timeRecordingEnd - timeRecordingStart) * 1e-9) - (CHUNK / RATE)
+    print("Start recording")
+    timeRecordingStart = time.time_ns()
+    hugeChunk = STREAM.read(CHUNK)
+    timeRecordingEnd = time.time_ns()
+    print("End recording")
 
+    timeTillRecordingRealStarted = ((timeRecordingEnd - timeRecordingStart) * 1e-9) - (CHUNK / RATE)
 
-freqs = (frequencyListen, frequencyListen)
+    frameFoundAt = 0
 
-frameFoundAt = 0
+    bar = progressbar.ProgressBar(max_value=CHUNK)
 
-bar = progressbar.ProgressBar(max_value=CHUNK)
+    readData = np.frombuffer(hugeChunk, dtype='h')  
+    readData = np.array(readData, dtype='h')/140 + 255
+    vals = []
 
-searchTillEnd = True
+    indexOfFrequency = int((frequencyListen - (frequencyListen % (RATE / realChunk))) / (RATE/realChunk))
 
-maxValue = 0
-frameMaxAt = 0
+    frameFoundAt = -1
+    threshhold = 0.01
+    arr = []
 
-wf_data = np.frombuffer(hugeChunk, dtype='h')  
-data_int = np.array(wf_data, dtype='h')/140 + 255
-vals = []
+    for i in range(0, CHUNK - realChunk): 
+        bar.update(i)
+        chunk = readData[i:i+realChunk*2]
+        realValues = np.abs(fft(chunk)[0:realChunk]) * 2 / (128 * realChunk)
+        valueOfFrequency = realValues[indexOfFrequency]
+        arr.append(realValues[indexOfFrequency])
 
-
-fig, (ax1, ax2) = plt.subplots(2, figsize=(15, 7))
-fig.show()
-xf = np.linspace(0, RATE, realChunk)     # frequencies (spectrum)
-line_fft, = ax2.semilogx(xf, np.random.rand(realChunk), '-', lw=2)
-ax2.set_xlim(20, RATE / 2)
-
-
-indexOfFrequency = int((frequencyListen - (frequencyListen % (RATE / realChunk))) / (RATE/realChunk))
-print(indexOfFrequency)
-
-
-frameFoundAt = -1
-threshhold = 0.01
-arr = []
-
-for i in range(0, CHUNK - realChunk): 
-    bar.update(i)
-    chunkRightNow = data_int[i:i+realChunk*2]
-    fftVals = np.abs(fft(chunkRightNow)[0:realChunk]) * 2 / (128 * realChunk)
-    line_fft.set_ydata(fftVals)
-    value = fftVals[indexOfFrequency]
-    arr.append(fftVals[indexOfFrequency])
-
-    if (value > threshhold):
-        frameFoundAt = i
-        print("Found on ", i)
-        break
-    if False: # If you want to see the Data on a graph (very slow)
-        fig.canvas.draw()
-        fig.canvas.flush_events()
-
-print("Max value:", max(arr))
-
-print("TimeTillRecordingRealStarted:",timeTillRecordingRealStarted)
-timeDistance = ((frameFoundAt / RATE) + timeTillRecordingRealStarted) * 1e+9
-print("TimeDistance:", timeDistance)
-
-timeUntilSoundPlayed = timeSoundPlayedAt - timeRecordingStart
-print("TimeUntilSoundPlayed", timeUntilSoundPlayed)
-
-timeRec = timeDistance - timeUntilSoundPlayed
-print("TimeRec", timeRec)
+        if (valueOfFrequency > threshhold):
+            frameFoundAt = i
+            break
 
 
-relativeTime = abs(timeRec) * 1e-9
+    timeDistance = ((frameFoundAt / RATE) + timeTillRecordingRealStarted) * 1e+9 # Time (relative) we heard the sound at (correction for delay in the STREAM.READ() methode) (ns)
+    timeUntilSoundPlayed = timeSoundPlayedAt - timeRecordingStart # Time (relative) we heard the sound at (ns)
+    timeRec = timeDistance - timeUntilSoundPlayed # Time (relative) it took the sound to travel to the microphone (ns)
+    relativeTime = abs(timeRec) * 1e-9 # Time (relative) it took the sound to travel to the microphone (s)
+    distance = relativeTime * VELOCITY # Distance calculated by the time the sound traveled 
 
-print("Relative Time: ", relativeTime)
+    if (DEBUG): 
+        print("Max value:", max(arr))
+        print("Found on:", frameFoundAt)
+        print("TimeTillRecordingRealStarted:",timeTillRecordingRealStarted)
+        print("TimeDistance:", timeDistance)
+        print("TimeUntilSoundPlayed:", timeUntilSoundPlayed)
+        print("TimeRec:", timeRec)
+        print("Relative Time:", relativeTime)
+        print("Distance:", distance)
 
-
-distance = relativeTime * velocity
-print("Distance: ", distance)
+    return distance
