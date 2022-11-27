@@ -47,12 +47,12 @@ def threadPlaySound(freqsss, timePlay):
     print("Sound Played")
 
 
-def getDistanceToSpeaker(STREAM, CHUNK, REALCHUNK, FREQUENCYPLAY, TIMEPLAYING, DEBUG, VELOCITY, THRESHHOLD):
+def getDistanceToSpeaker(STREAM, CHUNK, REALCHUNK, FREQUENCYPLAY, TIMEPLAYING, DEBUG, VELOCITY, THRESHHOLD): # Function to calculate Distance from Speaker and Microphone
     threadPlayer = Thread(target=threadPlaySound, args=((FREQUENCYPLAY, TIMEPLAYING)))
     threadPlayer.start()
 
     print("Start recording")
-    timeRecordingStart = time.time_ns()
+    timeRecordingStart = time.time_ns() # Messuring recording time
     hugeChunk = STREAM.read(CHUNK)
     timeRecordingEnd = time.time_ns()
     print("End recording")
@@ -63,16 +63,16 @@ def getDistanceToSpeaker(STREAM, CHUNK, REALCHUNK, FREQUENCYPLAY, TIMEPLAYING, D
 
     bar = progressbar.ProgressBar(max_value=CHUNK)
 
-    readData = np.frombuffer(hugeChunk, dtype='h')  
+    readData = np.frombuffer(hugeChunk, dtype='h')  # Converting Chunk to readable Chunk
     readData = np.array(readData, dtype='h')/140 + 255
     vals = []
 
-    indexOfFrequency = int((frequencyListen - (frequencyListen % (RATE / REALCHUNK))) / (RATE/REALCHUNK))
+    indexOfFrequency = int((frequencyListen - (frequencyListen % (RATE / REALCHUNK))) / (RATE/REALCHUNK)) # Calculating index of frequency we want to listen to
 
     frameFoundAt = -1
     arr = []
 
-    for i in range(0, CHUNK - REALCHUNK): 
+    for i in range(0, CHUNK - REALCHUNK): # Checking through all sub-chunks, detects first 
         bar.update(i)
         chunk = readData[i:i+REALCHUNK*2]
         realValues = np.abs(fft(chunk)[0:REALCHUNK]) * 2 / (128 * REALCHUNK)
@@ -101,3 +101,6 @@ def getDistanceToSpeaker(STREAM, CHUNK, REALCHUNK, FREQUENCYPLAY, TIMEPLAYING, D
         print("Distance:", distance)
 
     return distance
+
+
+getDistanceToSpeaker(stream, CHUNK, realChunk, frequencyPlay, timePlaying, True, 330, 0.04)
