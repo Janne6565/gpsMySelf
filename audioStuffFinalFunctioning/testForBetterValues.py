@@ -5,7 +5,6 @@ import matplotlib.pyplot as plt
 from scipy.fftpack import fft
 
 delay = 2
-frequencyPlay = 775
 frequencyListen = 800
 timePlaying = 2
 velocity = 343 
@@ -19,7 +18,12 @@ CHUNK = 1024 * 176 # RATE * (timeRecording + delay)
 realChunk = int(1024 / 2)
 timeSoundPlayedAt = -1
 
-windowSize = 1 / RATE
+windowSize = 1 / RATE # time between each frame
+
+frequencyPlayed = int((frequencyListen - (frequencyListen % (RATE / realChunk))))
+indexOfFrequency = int((frequencyListen - (frequencyListen % (RATE / realChunk))) / (RATE/realChunk)) # Calculating index of frequency we want to listen to
+frequencyListen = frequencyPlayed
+frequencyListen = frequencyPlayed
 
 audio = pyaudio.PyAudio()
 
