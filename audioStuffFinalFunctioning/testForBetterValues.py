@@ -23,7 +23,6 @@ windowSize = 1 / RATE # time between each frame
 frequencyPlayed = int((frequencyListen - (frequencyListen % (RATE / realChunk))))
 indexOfFrequency = int((frequencyListen - (frequencyListen % (RATE / realChunk))) / (RATE/realChunk)) # Calculating index of frequency we want to listen to
 frequencyListen = frequencyPlayed
-frequencyListen = frequencyPlayed
 
 audio = pyaudio.PyAudio()
 
@@ -107,4 +106,4 @@ def getDistanceToSpeaker(STREAM, CHUNK, REALCHUNK, FREQUENCYPLAY, TIMEPLAYING, D
     return distance
 
 
-getDistanceToSpeaker(stream, CHUNK, realChunk, frequencyPlay, timePlaying, True, 330, 0.04)
+getDistanceToSpeaker(stream, CHUNK, realChunk, frequencyPlayed, timePlaying, True, 330, 0.04)
