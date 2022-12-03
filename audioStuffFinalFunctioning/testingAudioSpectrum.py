@@ -79,7 +79,7 @@ while True:
     # compute FFT and update line
     yf = fft(data_int)
     realYData = np.abs(yf[0:CHUNK])  / (128 * CHUNK)
-    print(realYData[37])
+    print("AVG", sum(realYData[10:-1])/len(realYData[10:-1]), "realData:", realYData[37])
 
     line_fft.set_ydata(realYData)
     

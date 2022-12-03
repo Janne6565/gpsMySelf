@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 from scipy.fftpack import fft
 
 delay = 2
-frequencyListen = 800
+frequencyListen = 10000
 timePlaying = 2
 velocity = 343 
 
@@ -82,10 +82,17 @@ def getDistanceToSpeaker(STREAM, CHUNK, REALCHUNK, FREQUENCYPLAY, TIMEPLAYING, D
         valueOfFrequency = realValues[indexOfFrequency]
         arr.append(realValues[indexOfFrequency])
 
-        if (valueOfFrequency > THRESHHOLD):
+        if (valueOfFrequency > THRESHHOLD and frameFoundAt == -1):
             frameFoundAt = i
-            break
 
+    
+    fig, (ax1) = plt.subplots(1, figsize=(15, 7))
+    fig.show() 
+    ax1.plot(np.arange(0, len(arr), 1), np.array(arr), color='g', linestyle='-', lw=2)
+    ax1.plot(frameFoundAt, arr[frameFoundAt], color='r', linestyle=':')
+    fig.show()
+    fig.waitforbuttonpress()
+    ax1.set_title("Values for frequency")
 
     timeDistance = ((frameFoundAt / RATE) + timeTillRecordingRealStarted) * 1e+9 # Time (relative) we heard the sound at (correction for delay in the STREAM.READ() methode) (ns)
     timeUntilSoundPlayed = timeSoundPlayedAt - timeRecordingStart # Time (relative) we heard the sound at (ns)
@@ -106,4 +113,4 @@ def getDistanceToSpeaker(STREAM, CHUNK, REALCHUNK, FREQUENCYPLAY, TIMEPLAYING, D
     return distance
 
 
-getDistanceToSpeaker(stream, CHUNK, realChunk, frequencyPlayed, timePlaying, True, 330, 0.04)
+getDistanceToSpeaker(stream, CHUNK, realChunk, frequencyPlayed, timePlaying, True, 330, 0.003)
