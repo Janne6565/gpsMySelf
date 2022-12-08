@@ -45,4 +45,9 @@ def returnPoints():
         string += str(num) + ":{'position':{'x':" + str(satt.position.x) + ",'y':" + str(satt.position.y) + "},'distance':" + str(satt.distance) + "),"
     string += "}"
     return string
+
+@app.route('/calculateIntersection')
+def calc(): 
+    return controller.getPoint(0, 1, 2)
+
 app.run()

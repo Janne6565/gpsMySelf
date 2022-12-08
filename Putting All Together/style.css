@@ -1,3 +1,7 @@
 * {
     font-family: 'arial-black';
 }
+
+#canvas {
+    border: black thin solid;
+}

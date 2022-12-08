@@ -76,7 +76,7 @@ class AudioListener:
         frameFoundAt = -1
         arr = []
 
-        for i in range(0, self.CHUNK - self.REALCHUNK * 2): # Checking through all sub-chunks, detects first 
+        for i in range(0, self.CHUNK - self.REALCHUNK): # Checking through all sub-chunks, detects first 
             bar.update(i)
             chunk = readData[i:i+self.REALCHUNK*2]
             realValues = np.abs(fft(chunk)[0:self.REALCHUNK]) * 2 / (128 * self.REALCHUNK)
