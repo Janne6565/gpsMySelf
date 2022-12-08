@@ -14,14 +14,6 @@
     <script>
         let mouseDown = true
 
-        window.onmousedown = e => {
-            if (e.button == 0) mouseDown = true
-        }
-
-        window.onmouseup = e => {
-            if (e.button == 0) mouseDown = false
-        }
-
         class Drawer {
             constructor(id) {
                 this.canvas = document.getElementById(id)
