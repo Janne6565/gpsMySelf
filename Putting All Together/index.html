@@ -6,7 +6,7 @@
     </head>
     <body onload="draw();">
         <div id="app">
-            <canvas id="canvas">
+            <canvas id="canvas" width="1920px" height="1080px">
                 <p>Canvas couldnt be loaded</p>
             </canvas>
         </div>
@@ -128,7 +128,7 @@
                     let satelite = this.satelites[sat]
                     this.drawer.drawBall(satelite.x, satelite.y, this.size, satelite.color)
                     if (satelite.radius > 0) {
-                        console.log(satelite.radius)
+                        console.log(satelite)
                         this.drawer.drawCircle(satelite.x, satelite.y, satelite.radius, satelite.color)
                     }
                 }
@@ -139,11 +139,10 @@
 
         function draw() {
             let sat = new SateliteDrawer("canvas", 10)
-            sat.addSatelite(new Satelite(25, 25, 100, "0, 0, 255, 0.4"))
-            sat.addSatelite(new Satelite(60, 50, 70, "0, 255, 0, 0.4"))
-            sat.tick()
+            sat.addSatelite(new Satelite(100, 100, 50, "0, 0, 255, 0.4"))
+            sat.addSatelite(new Satelite(200, 100, 50, "0, 255, 0, 0.4"))
+            sat.addSatelite(new Satelite(300, 100, 50, "255, 0, 0, 0.4"))
             setInterval(e=>{sat.tick()}, 10)
-            setTimeout(e=>{sat.setRadius(0, 25)}, 1000)
         }
     </script>
     <script src="vue.js"></script>
