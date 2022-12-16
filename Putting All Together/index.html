@@ -4,147 +4,25 @@
         <title>Test App</title>
         <link rel="stylesheet" href="./style.css">
     </head>
-    <body onload="draw();" style="margin: 0; padding: 0;">
+    <body>
         <div id="app">
-            <canvas id="canvas" width="1920px" height="1080px">
-                <p>Canvas couldnt be loaded</p>
-            </canvas>
+            <div class="main">
+                <header>
+                    <h1>WaveSense</h1>
+                </header>
+                <div class="body">
+                    <div class="left">
+                        <canvas id="canvasDisplay">
+                            <p>{{error.canvas}}</p>
+                        </canvas>
+                    </div>
+                    <div class="right">
+                    </div>
+                </div>
+            </div>
         </div>
     </body>
-    <script>
-        let mouseDown = true
-
-        window.onmousedown = e => {
-            if (e.button == 0) mouseDown = true
-        }
-
-        window.onmouseup = e => {
-            if (e.button == 0) mouseDown = false
-        }
-
-        class Drawer {
-            constructor(id) {
-                this.canvas = document.getElementById(id)
-                this.ctx = canvas.getContext("2d")
-            }
-
-            clearScreen() {
-                this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-            }
-
-            drawBall(centerX, centerY, radius, color) {
-                this.ctx.fillStyle = "rgba(" + color + ")"
-                this.ctx.beginPath()
-                this.ctx.arc(centerX, centerY, radius, 0, Math.PI * 2, true)
-                this.ctx.closePath()
-                this.ctx.fill()
-            }
-
-            drawCircle(centerX, centerY, radius, color) {
-                this.ctx.beginPath()
-                this.ctx.arc(centerX, centerY, radius, 0, Math.PI * 2, true)
-                this.ctx.lineWidth = 3
-                this.ctx.stroke()
-                this.ctx.closePath()
-            }
-        }
-
-        class Satelite {
-            constructor(x, y, radius, color) {
-                this.x = x
-                this.y = y
-                this.radius = radius
-                this.color = color
-            }
-        }
-
-        class SateliteDrawer {
-            satelites = []
-            drawer = new Drawer("canvas ")
-            size = 0
-            targetElem = -1
-
-            constructor(id, size) {
-                this.drawer = new Drawer(id)
-                this.satelites = []
-                this.size = size
-                let selff = this
-                this.drawer.canvas.onmouseup = e => {
-                    if (e.button === 0) {
-                        mouseDown = false
-                        selff.targetElem = -1
-                    }
-                }
-
-                this.drawer.canvas.onmousedown = e => {
-                    if (e.button === 0) {
-                        mouseDown = true
-                        let canvas = selff.drawer.canvas
-                        let rect = canvas.getBoundingClientRect()
-
-                        let mouseX = e.clientX - rect.left
-                        let mouseY = e.clientY - rect.top
-
-                        let minVal = -1
-                        for (let sat in selff.satelites) {
-                            let satelite = selff.satelites[sat]
-                            let distance = Math.sqrt((mouseX - satelite.x)**2 + (mouseY - satelite.y)**2)
-                            if (distance < selff.size && (distance < minVal || minVal == -1)) {
-                                selff.targetElem = sat
-                                minVal = distance
-                            }
-                        }
-                    }
-
-                    this.drawer.canvas.onmousemove = e => {
-                        if (selff.targetElem !== -1) {
-                            let canvas = selff.drawer.canvas
-                            let rect = canvas.getBoundingClientRect()
-                            let mouseX = e.clientX - rect.left
-                            let mouseY = e.clientY - rect.top
-
-
-                            selff.satelites[selff.targetElem] = new Satelite(mouseX, mouseY, selff.satelites[selff.targetElem].radius, selff.satelites[selff.targetElem].color)
-                        }
-                    }
-                }
-            }
-
-            addSatelite(satelite) {
-                this.satelites.push(satelite)
-            }
-
-            setSatelite(index, newSatelite) {
-                this.satelites[index] = newSatelite
-            }
-
-            setRadius(index, radius) {
-                this.satelites[index].radius = radius
-            }
-
-            tick() {
-                this.drawer.clearScreen()
-                for (let sat in this.satelites) {
-                    let satelite = this.satelites[sat]
-                    this.drawer.drawBall(satelite.x, satelite.y, this.size, satelite.color)
-                    if (satelite.radius > 0) {
-                        console.log(satelite.radius)
-                        this.drawer.drawCircle(satelite.x, satelite.y, satelite.radius, satelite.color)
-                    }
-                }
-            }
-        }
-
-        
-
-        function draw() {
-            let sat = new SateliteDrawer("canvas", 10)
-            sat.addSatelite(new Satelite(100, 100, 100, "0, 0, 255, 0.4"))
-            sat.addSatelite(new Satelite(200, 100, 70, "0, 255, 0, 0.4"))
-            sat.addSatelite(new Satelite(300, 100, 70, "255, 0, 0, 0.4"))
-            setInterval(e=>{sat.tick()}, 10)
-        }
-    </script>
+    <script src="chart.js"></script>
     <script src="vue.js"></script>
     <script src="app.js"></script>
 </html>
