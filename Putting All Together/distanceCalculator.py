@@ -34,8 +34,6 @@ class AudioListener:
         wf.close()
 
 
-
-
     STREAM = audio.open(format=FORMAT, channels=CHANNELS,
                     rate=RATE, input=True,
                     frames_per_buffer=CHUNK, input_device_index=1)
@@ -58,7 +56,11 @@ class AudioListener:
         print("Start recording")
         timeRecordingStart = time.time_ns() # Messuring recording time
         hugeChunk = self.STREAM.read(self.CHUNK)
+        self.writeToFile("test.wav", hugeChunk)
         timeRecordingEnd = time.time_ns()
+        print("Chunk Size:", self.CHUNK)
+        print("Estimated time for Chunk:", self.CHUNK / self.RATE)
+        print("Time it took to listen to microphone:", (timeRecordingEnd - timeRecordingStart)* 1e-9)
         print("End recording")
 
         timeTillRecordingRealStarted = ((timeRecordingEnd - timeRecordingStart) * 1e-9) - (self.CHUNK / self.RATE)
@@ -69,7 +71,6 @@ class AudioListener:
         
         readData = np.frombuffer(hugeChunk, dtype='h')  # Converting Chunk to readable Chunk
         readData = np.array(readData, dtype='h')/140 + 255
-        vals = []
 
         indexOfFrequency = int((frequencyPlayed - (frequencyPlayed % (self.RATE / self.REALCHUNK))) / (self.RATE/self.REALCHUNK)) # Calculating index of frequency we want to listen to
 
@@ -87,13 +88,13 @@ class AudioListener:
                 frameFoundAt = i
 
         
-        fig, (ax1) = plt.subplots(1, figsize=(15, 7))
-        fig.show() 
-        ax1.plot(np.arange(0, len(arr), 1), np.array(arr), color='g', linestyle='-', lw=2)
-        ax1.plot(frameFoundAt, arr[frameFoundAt], color='r', linestyle=':')
-        fig.show()
+        #fig, (ax1) = plt.subplots(1, figsize=(15, 7))
+        #fig.show() 
+        #ax1.plot(np.arange(0, len(arr), 1), np.array(arr), color='g', linestyle='-', lw=2)
+        #ax1.plot(frameFoundAt, arr[frameFoundAt], color='r', linestyle=':')
+        #fig.show()
         #fig.waitforbuttonpress()
-        ax1.set_title("Values for frequency")
+        #ax1.set_title("Values for frequency")
 
         timeDistance = ((frameFoundAt / self.RATE) + timeTillRecordingRealStarted) * 1e+9 # Time (relative) we heard the sound at (correction for delay in the STREAM.READ() methode) (ns)
         timeUntilSoundPlayed = timeSoundPlayedAt - timeRecordingStart # Time (relative) we heard the sound at (ns)
@@ -112,3 +113,8 @@ class AudioListener:
             print("Distance:", distance)
 
         return distance
+
+
+if (__name__ == "__main__"):
+    audio = AudioListener()
+    print(audio.getDistanceToSpeaker(10000, 2, True, 334, 0.03))

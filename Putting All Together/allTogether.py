@@ -55,21 +55,32 @@ class Calculator:
 
 class Controller: 
     calculator = Calculator()
+    freq = 10000
+    threshold = 0.003
+    timeplay = 2
+    velocity = 334
+    debug = True 
 
     def calculatePoint(self, indexOfPoint): 
         audio = distanceCalculator.AudioListener() 
-        self.calculator.setSateliteDistance(indexOfPoint, audio.getDistanceToSpeaker(10000, True, 2, 334, 0.003))
+        self.calculator.setSateliteDistance(indexOfPoint, audio.getDistanceToSpeaker(self.freq, self.debug, self.timePlay, self.velocity, self.threshold))
     
-    def getPoint():
-        return calculator.calculate()
+    def getPoint(self):
+        return self.calculator.calculate()
 
 
 if __name__ == '__main__':
-    calculator = Calculator()
-    calculator.setSatelitePosition(0, Position(0, 0))
-    calculator.setSatelitePosition(1, Position(0, 1))
-    calculator.setSatelitePosition(2, Position(-1, 3))
-    calculator.setSateliteDistance(0, 2)
-    calculator.setSateliteDistance(1, 1)
-    calculator.setSateliteDistance(2, 5)
-    print(calculator.calculate(0, 1, 2))
+    if False: 
+        calculator = Calculator()
+        calculator.setSatelitePosition(0, Position(0, 0))
+        calculator.setSatelitePosition(1, Position(0, 1))
+        calculator.setSatelitePosition(2, Position(-1, 3))
+        calculator.setSateliteDistance(0, 2)
+        calculator.setSateliteDistance(1, 1)
+        calculator.setSateliteDistance(2, 5)
+        print(calculator.calculate(0, 1, 2))
+    else: 
+        cont = Controller()
+        cont.calculator.setSateliteDistance(0, Position(0, 0))
+        cont.calculatePoint(0)
+        print(cont.calculator.satelites[0].distance)
