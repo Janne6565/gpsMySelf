@@ -1,31 +1,7 @@
 from flask import Flask, request
 import allTogether, distanceCalculator, json
-from threading import Thread
 
 app = Flask(__name__)
-
-
-
-class DistanceThreader: 
-    result = -1
-    finished = False
-    
-    def calcPoint(self):
-        aud = distanceCalculator.AudioListener()
-        self.result = aud.getDistanceToSpeaker(10000, True, 2, 334, 0.003)
-        self.finished = True
-        print("Finished the Thread")
-    
-    def startCalc(self): 
-        thread = Thread(target=self.calcPoint)
-        thread.start()
-        print("Finished starting the Thread")
-
-
-
-@app.route('/test')
-def test():
-    return "Hallo mein name ist janne"
 
 @app.route('/')
 def index():
@@ -47,27 +23,17 @@ def vueJs():
 
 
 controller = allTogether.Controller()
-holder = DistanceThreader()
-
-@app.route('/getSound')
-def getSound(): 
-    if (holder.finished):
-        return str(holder.result)
-    else: 
-        return "Not finished yet"
-
-@app.route('/resetResult')
-def resetResult(): 
-    holder.result = None
-    holder.finished = False
-    return ""
 
 @app.route('/makeSound')
 def calcPoints(): 
-    holder.startCalc()
-    
+    try: 
+        satelite = int(request.args.get("id"))
+        if (satelite > 2 or satelite < 0): 
+            raise("Not a valid number")
+    except: 
+        return "Not a valid number"
+    controller.calculatePoint(satelite)
     return "Finished"
-
 
 @app.route('/getPoints')
 def returnPoints(): 
@@ -91,6 +57,11 @@ def setSettings():
     velocity = json['velocity']
     debug = bool(json['debug'])
     controller.calculator.freq = freq
+    controller.calculator.threshold = threshold
+    controller.calculator.timeplay = timeplay
+    controller.calculator.velocity = velocity
+    controller.calculator.debug = debug
+
 
 app.run()
 

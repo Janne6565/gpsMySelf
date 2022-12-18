@@ -63,7 +63,7 @@ class Controller:
 
     def calculatePoint(self, indexOfPoint): 
         audio = distanceCalculator.AudioListener() 
-        self.calculator.setSateliteDistance(indexOfPoint, audio.getDistanceToSpeaker(self.freq, self.debug, self.timePlay, self.velocity, self.threshold))
+        self.calculator.setSateliteDistance(indexOfPoint, audio.getDistanceToSpeaker(self.freq, self.debug, self.timeplay, self.velocity, self.threshold))
     
     def getPoint(self):
         return self.calculator.calculate()

@@ -23,20 +23,14 @@ class AudioListener:
 
     windowSize = 1 / RATE # time between each frame
 
-    audio = pyaudio.PyAudio()
 
     def writeToFile(self, fileName, chunk): 
         wf = wave.open(fileName, 'wb')
         wf.setnchannels(self.CHANNELS)
-        wf.setsampwidth(self.audio.get_sample_size(self.FORMAT))
+        wf.setsampwidth(pyaudio.PyAudio().get_sample_size(self.FORMAT))
         wf.setframerate(self.RATE)
         wf.writeframes(chunk)
         wf.close()
-
-
-    STREAM = audio.open(format=FORMAT, channels=CHANNELS,
-                    rate=RATE, input=True,
-                    frames_per_buffer=CHUNK, input_device_index=1)
 
 
     def threadPlaySound(self, freqsss, timePlay):
@@ -49,13 +43,18 @@ class AudioListener:
     def getDistanceToSpeaker(self, FREQUENCYPLAY, TIMEPLAYING, DEBUG, VELOCITY, THRESHHOLD): # Function to calculate Distance from Speaker and Microphone
         frequencyPlayed = int((FREQUENCYPLAY - (FREQUENCYPLAY % (self.RATE / self.REALCHUNK))))
         indexOfFrequency = int((FREQUENCYPLAY - (FREQUENCYPLAY % (self.RATE / self.REALCHUNK))) / (self.RATE/self.REALCHUNK)) # Calculating index of frequency we want to listen to
+
+        audio = pyaudio.PyAudio()
+        STREAM = audio.open(format=self.FORMAT, channels=self.CHANNELS,
+                    rate=self.RATE, input=True,
+                    frames_per_buffer=self.CHUNK, input_device_index=1)
         
         threadPlayer = Thread(target=self.threadPlaySound, args=((frequencyPlayed, TIMEPLAYING)))
         threadPlayer.start()
 
         print("Start recording")
         timeRecordingStart = time.time_ns() # Messuring recording time
-        hugeChunk = self.STREAM.read(self.CHUNK)
+        hugeChunk = STREAM.read(self.CHUNK)
         self.writeToFile("test.wav", hugeChunk)
         timeRecordingEnd = time.time_ns()
         print("Chunk Size:", self.CHUNK)
@@ -88,18 +87,16 @@ class AudioListener:
                 frameFoundAt = i
 
         
-        #fig, (ax1) = plt.subplots(1, figsize=(15, 7))
-        #fig.show() 
-        #ax1.plot(np.arange(0, len(arr), 1), np.array(arr), color='g', linestyle='-', lw=2)
-        #ax1.plot(frameFoundAt, arr[frameFoundAt], color='r', linestyle=':')
-        #fig.show()
-        #fig.waitforbuttonpress()
-        #ax1.set_title("Values for frequency")
+        fig, (ax1) = plt.subplots(1, figsize=(15, 7))
+        ax1.plot(np.arange(0, len(arr), 1), np.array(arr), color='g', linestyle='-', lw=2)
+        ax1.plot(frameFoundAt, arr[frameFoundAt], color='r', linestyle=':')
+        
+        ax1.set_title("Values for frequency")
 
         timeDistance = ((frameFoundAt / self.RATE) + timeTillRecordingRealStarted) * 1e+9 # Time (relative) we heard the sound at (correction for delay in the STREAM.READ() methode) (ns)
         timeUntilSoundPlayed = timeSoundPlayedAt - timeRecordingStart # Time (relative) we heard the sound at (ns)
         timeRec = timeDistance - timeUntilSoundPlayed # Time (relative) it took the sound to travel to the microphone (ns)
-        relativeTime = abs(timeRec) * 1e-9 # Time (relative) it took the sound to travel to the microphone (s)
+        relativeTime = timeRec * 1e-9 # Time (relative) it took the sound to travel to the microphone (s)
         distance = relativeTime * VELOCITY # Distance calculated by the time the sound traveled 
 
         if (DEBUG): 
@@ -112,9 +109,11 @@ class AudioListener:
             print("Relative Time:", relativeTime)
             print("Distance:", distance)
 
+        #fig.show()
+        #fig.waitforbuttonpress()
         return distance
 
 
 if (__name__ == "__main__"):
     audio = AudioListener()
-    print(audio.getDistanceToSpeaker(10000, 2, True, 334, 0.03))
+    print(audio.getDistanceToSpeaker(10000, 2, True, 334, 0.002))
