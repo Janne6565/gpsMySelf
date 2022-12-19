@@ -109,8 +109,8 @@ class AudioListener:
             print("Relative Time:", relativeTime)
             print("Distance:", distance)
 
-        #fig.show()
-        #fig.waitforbuttonpress()
+        fig.show()
+        fig.waitforbuttonpress()
         return distance
 
 

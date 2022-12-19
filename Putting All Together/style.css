@@ -58,7 +58,8 @@ header > h1 {
 .right {
     width: 30%;
     height: 100%;
-    background-color: blue;
+    background-color: white;
+    box-shadow: 1px 1px 1px white;
 }
 
 canvas {

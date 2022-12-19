@@ -24,16 +24,6 @@ def vueJs():
 
 controller = allTogether.Controller()
 
-def convertSettingsToObject(): 
-    settings = {
-        "freq": controller.freq,
-        "threshold": controller.threshold,
-        "timeplay": controller.timeplay,
-        "velocity": controller.velocity,
-        "debug": controller.debug
-    }
-    return settings
-
 @app.route('/makeSound')
 def calcPoints(): 
     try: 
@@ -60,22 +50,17 @@ def calc():
 
 @app.route('/setSettings')
 def setSettings(): 
-    loaded = json.loads(request.args.get("settings"))
-    freq = loaded['freq']
-    threshold = loaded['threshold']
-    timeplay = loaded['timeplay']
-    velocity = loaded['velocity']
-    debug = bool(loaded['debug'])
-    controller.freq = freq
-    controller.threshold = threshold
-    controller.timeplay = timeplay
-    controller.velocity = velocity
-    controller.debug = debug
-    return "Changed Settings"
-
-@app.route('/getSettings')
-def getSettings(): 
-    return json.dumps(convertSettingsToObject())
+    json = json.loads(request.args.get("settings"))
+    freq = json['freq']
+    threshold = json['threshold']
+    timeplay = json['timeplay']
+    velocity = json['velocity']
+    debug = bool(json['debug'])
+    controller.calculator.freq = freq
+    controller.calculator.threshold = threshold
+    controller.calculator.timeplay = timeplay
+    controller.calculator.velocity = velocity
+    controller.calculator.debug = debug
 
 
 app.run()
