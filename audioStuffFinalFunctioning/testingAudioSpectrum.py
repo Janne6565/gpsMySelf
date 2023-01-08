@@ -65,8 +65,14 @@ print('stream started')
 frame_count = 0
 start_time = time.time()
 
+frequencyListenTo = 10000
+oldFrame = time.time_ns()
+newFrame = time.time_ns()
 while True:
-    
+    oldFrame = time.time_ns()
+    print(oldFrame - newFrame)
+
+    newFrame = oldFrame
     # binary data
     data = stream.read(CHUNK)  
     # convert data to integers, make np array, then offset it by 127
@@ -79,7 +85,11 @@ while True:
     # compute FFT and update line
     yf = fft(data_int)
     realYData = np.abs(yf[0:CHUNK])  / (128 * CHUNK)
-    print("AVG", sum(realYData[10:-1])/len(realYData[10:-1]), "realData:", realYData[37])
+    # print("AVG", sum(realYData[10:-1])/len(realYData[10:-1]), "realData:", realYData[37])
+
+
+    indexOfFrequency = int((frequencyListenTo - (frequencyListenTo % (RATE / CHUNK))) / (RATE/CHUNK)) # Calculating index of frequency we want to listen to
+
 
     line_fft.set_ydata(realYData)
     
