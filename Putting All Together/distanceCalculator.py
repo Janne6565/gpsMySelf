@@ -10,7 +10,7 @@ class AudioListener:
     delay = 2
     frequency = 10000
     timePlaying = 2
-    velocity = 343 
+    velocity = 343
 
 
     #AUDIO INPUT
