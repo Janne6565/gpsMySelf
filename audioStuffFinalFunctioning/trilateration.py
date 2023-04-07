@@ -84,4 +84,3 @@ def calculateIntersections(c1, c2, debug): # Input should look like this: (((x1,
     
 
     return points
-

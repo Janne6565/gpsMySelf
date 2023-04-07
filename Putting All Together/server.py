@@ -79,5 +79,3 @@ def getSettings():
 
 
 app.run()
-
-
