@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="en">
 	<head>
+		
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
@@ -8,22 +9,58 @@
 
 		<link rel="stylesheet" href="dist/reset.css">
 		<link rel="stylesheet" href="dist/reveal.css">
-		<link rel="stylesheet" href="dist/theme/black.css">
+		<link rel="stylesheet" href="dist/theme/serif.css">
 
 		<!-- Theme used for syntax highlighted code -->
 		<link rel="stylesheet" href="plugin/highlight/monokai.css">
+
 	</head>
 	<body>
+
 		<div class="reveal">
-			<div class="slides">
-				<section id="firstPage">
-					<h2>
-						{{title}}
-					</h2>
+			<div class="slides"> 
+
+				<section data-markdown>
+					<textarea data-template>
+					  ## Ortungssysteme auf einer flachen Ebene
+					  Eine Präsentation von Janne K. und David B.
+					</textarea>
+				  </section>
+
+				<section id="secondPage">
+					\[\begin{gather*}
+					x^2 + y^2 = r_1^2 \\
+					(x_1 + x)^2 + (y_1 + y)^2 = r_2^2 
+					\\
+					\\
+					x^2 = r_1^2 - y^2 
+					\\
+					x = \sqrt{r_1^2-y^2}
+					\end{gather*} \]
+					
+					{{position}}
 				</section>
+
 				<section id="secondPage">
 					{{position}}
 				</section>
+
+				<section id="secondPage">
+					{{position}}
+				</section>
+
+				<section id="secondPage">
+					{{position}}
+				</section>
+
+				<section id="secondPage">
+					{{position}}
+				</section>
+
+				<section id="secondPage">
+					{{position}}
+				</section>
+
 			</div>
 		</div>
 
@@ -37,9 +74,36 @@
 			// - https://revealjs.com/config/
 			Reveal.initialize({
 				hash: true,
-
 				// Learn about plugins: https://revealjs.com/plugins/
 				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
+			});
+		</script>
+
+
+		<script src="vue.js"></script>
+		<script src="app.js"></script>
+
+	</body>
+</html>
+
+			</div>
+		</div>
+
+
+		<script src="plugin/math/math.js"></script>
+		<script src="dist/reveal.js"></script>
+		<script src="plugin/notes/notes.js"></script>
+		<script src="plugin/markdown/markdown.js"></script>
+		<script src="plugin/highlight/highlight.js"></script>
+		<script>
+			// More info about initialization & config:
+			// - https://revealjs.com/initialization/
+			// - https://revealjs.com/config/
+			Reveal.initialize({
+				hash: true,
+				slideNumber: 'c/t',
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes, RevealMath.KaTeX ]
 			});
 		</script>
 

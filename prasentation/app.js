@@ -35,7 +35,7 @@ function getIntersection(p1, p2, p3, d1, d2, d3, debug = false) {
     const y = (A * p3p1[0] - B * p2p1[0]) / (p2p1[1] * p3p1[0] - p3p1[1] * p2p1[0]); // (1.145 * 0 - 2.305 * 3) / (3 * 0 - 4 *)
     if (debug) console.log(x, y)
 
-    return { x, y };
+    return  "x: " + Math.round(x * 100)/100 + " y: " + Math.round(y * 100)/100;
 }
 
 
