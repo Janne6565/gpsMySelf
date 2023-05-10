@@ -35,7 +35,7 @@ function getIntersection(p1, p2, p3, d1, d2, d3, debug = false) {
     const y = (A * p3p1[0] - B * p2p1[0]) / (p2p1[1] * p3p1[0] - p3p1[1] * p2p1[0]); // (1.145 * 0 - 2.305 * 3) / (3 * 0 - 4 *)
     if (debug) console.log(x, y)
 
-    return  "x: " + Math.round(x * 100)/100 + " y: " + Math.round(y * 100)/100;
+    return  "x =  " + Math.round(x * 100)/100 + " y = " + Math.round(y * 100)/100;
 }
 
 
@@ -58,9 +58,11 @@ new Vue({
 
 new Vue({
     el: "#secondPage", 
+   
     data() {
         return {
-            position: getIntersection([0, 0], [3, 0], [0, 4], 2.5, 3.6, 4.2),
+            //position: getIntersection([0, 0], [3, 0], [0, 4], 2.5, 3.6, 4.2),
+            position: getIntersection([2, 1], [5, 2], [4, 7], 3, 4, 5),
         }
     },
     methods: {
