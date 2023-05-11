@@ -68,7 +68,7 @@ def calculateIntersections(c1, c2, debug): # Input should look like this: (((x1,
     resultForY = []
     for xy in [(xr, yr, resultForX), (yr, xr, resultForY)]: 
         d = (r2**2-r1**2)-xy[0]**2-xy[1]**2
-        a = 1 + (xy[0]**2)/(xy[1]**2)   
+        a = 1 + (xy[0]**2)/(xy[1]**2)
         b = -((d * xy[0])/(xy[1]**2))
         c = (d**2)/(4*xy[1]**2)-(r1**2)
         xy[2].append(useABC(a, b, c, debug))
@@ -82,5 +82,4 @@ def calculateIntersections(c1, c2, debug): # Input should look like this: (((x1,
         else: 
             points.append((resultForX[i], resultForY[i]))
     
-
     return points

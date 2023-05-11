@@ -5,7 +5,7 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-		<title>reveal.js</title>
+		<title>Ortungssysteme</title>
 
 		<link rel="stylesheet" href="dist/reset.css">
 		<link rel="stylesheet" href="dist/reveal.css">
@@ -31,10 +31,15 @@
 			p {
 				text-align:center;
 			}
+
 			#einfuehrung p{
 				text-align: justify;
 			}
 			
+			.reveal h2 {
+				letter-spacing: 1.2px;
+			}
+
 		</style>
 	</head>
 	<body>
@@ -157,7 +162,7 @@
 							</figure>
 							-->
 							<figure>
-							<img src="img/triangulation.jpeg" style="height:40pc"> <figcaption style="font-size: large;">https://education.nationalgeographic.org/resource/triangulation-sized/</figcaption>
+							<img src="img/triangulation.jpeg" style="height:30pc"> <figcaption style="font-size: large;">https://education.nationalgeographic.org/resource/triangulation-sized/</figcaption>
 							</figure>
 						</div>
 					</section>
@@ -175,47 +180,107 @@
 						<h2>Trilateration mit Schallwellen</h2>
 					</section>
 					<section>
-						<h2>Konzept</h2>
-					</section>
-					<section>
-						<p>Berechnung</p>
+						<h1>Konzept</h1>
+						<p>Sateliten:</p>
 						\[\begin{gather}
-							\ x^2 + y^2  &amp; = r_1^2 \\
 
-							\ (x_1 + x_2)^2 + (y_1+y_2)^2  &amp; = r_2^2 \\
+							p_1 = (x_1; y_1) \\
 
-							\ x_1^2+2x_1x_2+2y_1y_2+y_1^2 &amp; = r_2^2-r_1^2 \\
-							
+							p_2 = (x_2; y_2) \\ \\
+
+							p_r = (x_2 - x_1; y_2 - y_1) \\ \\
+
+							x^2 + y^2 = r_1^2 \\
+
+							(x + x_r)^2 + (y+y_r)^2 = r_2^2 \\
+
+							\\ \\
 
 						\end{gather} \]
+					</section>
+
+					<section>
 						\[\begin{gather} 
 						
-						\ x_2 = \frac{r_2^2-r_1^2-2y_1y_2-y_1^2-x_1^2}{2x_1} \\
-						
-						\\
-						\ x_2 = \frac{r_2^2-r_1^2\boxed{-2y_1y_2}-y_1^2-x_1^2}{\boxed{2x_1}} \\
-						
+							\ (x^2 + 2xx_r + x_r^2) + (y^2 + 2yy_r + y_r^2) - (x^2 + y^2) = r_2^2 - r_1^2 \\
+
+							\ 2xx_r + x_r^2 + 2yy_r + y_r^2 = r_2^2 - r_1^2 &amp;| - (r_2^2 - r_1^2) \\ \\
+
+
+							\ 2xx_r + x_r^2 + 2yy_r + y_r^2 -r_2^2 + r_1^2 = 0 &amp;| - 2xx_r \\ \\ 
+
+							\ x_r^2 + 2yy_r + y_r^2 - r_2^2 + r_1^2 = -2xx_r &amp;| :-2x_r \\ \\
+
+
+							\ \boxed{\frac{-(-r_2^2 + r_1^2 + 2yy_r +y_r^2 + x_r^2)}{2x_1} = x} \\
 
 						\end{gather}\]
 					</section>
-					<section>
 
+					<section>
 						\[\begin{gather}
 						
-						\ x_2 = \frac{r_2^2-r_1^2\boxed{-2y_1y_2}-y_1^2-x_1^2}{\boxed{2x_1}} \\
+							\ \frac{r_2^2 - r_1^2 - 2yy_r - y_r^2 - x_r^2}{2x_1} = x \\
 						
-						\ x_2 = \frac{\boxed{-2y_1y_2}}{\boxed{2x_1}}*\underbrace{r_2^2-r_1^2-y_1^2-x_1^2}_{\sigma} \\
-						\\
+						\end{gather}\]
+
+
+					</section>
+
+					<section>
+
 						
-						\sigma = r_2^2-r_1^2-y_1^2-x_1^2 \\
-						\\
-						\  \Big(\sigma*\frac{y_1y_2}{x_1}\Big)^2+y_2^2 = r_1^2   \\
-						\\
-						\ 2y_2^2+\Big(-2\frac{\sigma y_1}{x_1}y_2\Big)+\Big(\sigma^2-r_1^2\Big) = 0 \\
+
+						\[\begin{gather}
+							
+							\ x = \frac{r_2^2 - r_1^2 \boxed{-2yy_r} - y_r^2 - x_r^2}{\boxed{2x_r}} = \frac{\boxed{-2yy_r}}{\boxed{2x_r}} + \underbrace{\frac{r_2^2 - r_1^2 - y_r^2 - x_r^2}{2x_r}}_{\sigma}\\
+
+							\ \sigma = \frac{r_2^2 - r_1^2 - y_r^2 - x_r^2}{2x_r} \\
+							\\
+
+							\ x = \frac{-2yy_r}{2x_r} + \sigma \\
+
+							\ \boxed{x = \frac{-yy_r}{x_r} + \sigma} \\
 
 						\end{gather} \]
 
 					</section>
+					
+					<section>
+
+						\[\begin{gather}
+						
+							y_{1,2}=\frac{2\frac{\sigma y_r}{x_r} \pm \sqrt{4\frac{\sigma^2y_r^2}{x_r^2}- 4 \cdot 2 \cdot (\sigma^2 - r_1^2)}}{4} \\
+
+							\\
+							a = 2 \\
+
+							b = -2 \frac{\sigma y_r}{x_r} \\
+
+							c = \sigma^2 - r_1^2
+
+						\end{gather}\]
+
+					</section>
+
+					<section>
+						\[\begin{gather}
+						
+							\ \boxed{x = \frac{-yy_r}{x_r} + \sigma} \quad \textrm{einsetzen in} \quad \boxed{x^2 + y^2 = r_1^2} \\
+
+							\\
+
+							\ \left(\frac{-yy_r}{x_r} + \sigma\right) ^2 + y^2 = r_1^2 \\
+
+							\ \frac{y_r^2}{x_r^2}y^2 -2 \frac{y_r\sigma}{x_r} y + \sigma^2 + y^2 = r_1^2 \\
+
+							\ (1 + \frac{y_r^2}{x_r^2}) y^2 + (- 2 \frac{y_r\sigma}{x_r})y + (\sigma^2 - r_1^2) = 0 \\	
+						
+						\end{gather} \]
+
+
+					</section>
+
 
 					<section>
 						
