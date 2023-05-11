@@ -83,3 +83,35 @@ def calculateIntersections(c1, c2, debug): # Input should look like this: (((x1,
             points.append((resultForX[i], resultForY[i]))
     
     return points
+
+
+def testNewCalculation(c1, c2): 
+    xr = c1[0][0] - c2[0][0]
+    yr = c1[0][1] - c2[0][1]
+    r1 = c1[1]
+    r2 = c2[1]
+
+    if (xr == 0 and yr == 0):
+        return circlesSameSpot(c1, c2, False)
+    
+    if (math.sqrt(xr**2 + yr**2) > r1 + r2):  # Punkte zu weit entfernt 
+        raise("Circles are too far apart") 
+
+    d = (r2**2 - r1**2 - xr**2 - yr**2) / (2 * xr)
+    a = 1 + (yr**2) / (xr**2)
+    b = -2 * (d * yr) / xr
+    c = d**2 - r1**2
+
+    y = useABC(a, b, c, False)
+
+
+    d = (r2**2 - r1**2 - xr**2 - yr**2) / (2 * yr)
+    a = 1 + (xr**2) / (yr**2)
+    b = -2 * (d * xr) / yr
+    c = d**2 - r1**2
+
+    x = useABC(a, b, c, False)
+
+    return (x, y)
+
+print(testNewCalculation(((0, 0), 1), ((0.87539, -1.48), 1)))
