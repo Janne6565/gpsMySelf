@@ -294,35 +294,34 @@
 
 					<section>
 
-						<pre><code style="" class="language-python" data-line-numbers data-ln-start-from="1">
-							def testNewCalculation(c1, c2): 
-								xr = c1[0][0] - c2[0][0]
-								yr = c1[0][1] - c2[0][1]
-								r1 = c1[1]
-								r2 = c2[1]
+						<pre style="height: 50vh;"><code style="height: 100%;" class="language-python" data-line-numbers data-ln-start-from="1">def testNewCalculation(c1, c2): 
+	xr = c1[0][0] - c2[0][0]
+	yr = c1[0][1] - c2[0][1]
+	r1 = c1[1]
+	r2 = c2[1]
 
-								if (xr == 0 and yr == 0):
-									return circlesSameSpot(c1, c2, False)
-								
-								if (math.sqrt(xr**2 + yr**2) > r1 + r2):  # Punkte zu weit entfernt 
-									raise("Circles are too far apart") 
+	if (xr == 0 and yr == 0):
+		return circlesSameSpot(c1, c2, False)
+	
+	if (math.sqrt(xr**2 + yr**2) > r1 + r2):  # Punkte zu weit entfernt 
+		raise("Circles are too far apart") 
 
-								d = (r2**2 - r1**2 - xr**2 - yr**2) / (2 * xr)
-								a = 1 + (yr**2) / (xr**2)
-								b = -2 * (d * yr) / xr
-								c = d**2 - r1**2
+	d = (r2**2 - r1**2 - xr**2 - yr**2) / (2 * xr)
+	a = 1 + (yr**2) / (xr**2)
+	b = -2 * (d * yr) / xr
+	c = d**2 - r1**2
 
-								y = useABC(a, b, c, False)
+	y = useABC(a, b, c, False)
 
 
-								d = (r2**2 - r1**2 - xr**2 - yr**2) / (2 * yr)
-								a = 1 + (xr**2) / (yr**2)
-								b = -2 * (d * xr) / yr
-								c = d**2 - r1**2
+	d = (r2**2 - r1**2 - xr**2 - yr**2) / (2 * yr)
+	a = 1 + (xr**2) / (yr**2)
+	b = -2 * (d * xr) / yr
+	c = d**2 - r1**2
 
-								x = useABC(a, b, c, False)
+	x = useABC(a, b, c, False)
 
-								return (x, y)
+	return (x, y)
 						</code></pre>
 					</section>
 
@@ -530,6 +529,7 @@
 			Reveal.initialize({
 				
 				width: 1920,
+				height: 1080,
 				hash: true,
 				slideNumber: 'c/t',
 				// Learn about plugins: https://revealjs.com/plugins/
