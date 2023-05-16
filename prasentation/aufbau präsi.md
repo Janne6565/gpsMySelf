@@ -1,5 +1,5 @@
-1. einleitung
-# Formulierung des Erkenntnisinteresses
+# 1. einleitung
+## Formulierung des Erkenntnisinteresses
 
 - gemeinsamer Physikunterricht => Schall als Thema
 - vorheriges Projekt von Janne
@@ -7,11 +7,11 @@
 => GPS Tracking => flache Ebene 2D Simulation
 
 
-# Formulierung einer Leitfrage
+## Formulierung einer Leitfrage
  
 Ein schallbasierendes Trackingsystem - eine gute Alternative zu herkömmlichen Trackingsystemen? 
 
-# Relevanz oder Lebensweltbezug der Themenstellung 
+## Relevanz oder Lebensweltbezug der Themenstellung 
 
 => Simplifizierung vom Konzept
 => transitiv auf weitere Projekte in Bezug auf Tracking,
@@ -20,14 +20,14 @@ z.B. Tracking von Atombomben testen
 z.B. blinde Menschen
 => 
 
-# Ausgrenzung nicht interessierender Fragen
+## Ausgrenzung nicht interessierender Fragen
 
 => nur auf Schallwellen bezogen, nicht Mikrowellen
 => Schallgeschwindigkeit
 
 
-2. hauptteil
-# Strukturierte inhaltliche Ausführungen zu einem Problem bzw. einer Leitfrage   
+# 2. hauptteil
+## Strukturierte inhaltliche Ausführungen zu einem Problem bzw. einer Leitfrage   
 
 a. Wie funktioniert GPS Tracking
 b. Trilateration mit Schallwellen
@@ -39,7 +39,7 @@ f. Fast Fourier
 g. Vorteile
 => Präziser in naher Distanz, 
 => Nutzung von selbstfahrende Autos
-100.000 Samples pro Sekunde = genauigkeit 0,3cm
+100.000 Samples pro Sekunde => genauigkeit 0,3cm
 192.000 Samples pro Sekunde => 0,17cm 
 
 sound interface,
@@ -48,22 +48,22 @@ Beispielanwendung:
 => 
 
 
- 3. schluss
+# 3. schluss
 
 - inhaltliche Zusammenfassung/Urteilsbildung
 
 
 
-# Reflexion des Arbeitsweges
+## Reflexion des Arbeitsweges
 - auf interessante Themen tangentiell gestoßen, Fast Fourier
 - viele Probleme mit Experiment
 - 
 
-# Grenzen der Recherche(-möglichkeiten)
+## Grenzen der Recherche(-möglichkeiten)
 - höheres akademische Niveau
 - Nutzung der 
 
-# Ausblick (offene, weiterführende Fragen)
+## Ausblick (offene, weiterführende Fragen)
 
 - fixen des Experiments
 - Weiterübertragung auf andere Systeme
