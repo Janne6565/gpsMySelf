@@ -39,15 +39,30 @@ Kurzfassung: Trilateration mit distanzen berechnet von Latenzen von Schallsignal
 
 #### 2.1.3 Probleme
 
-    - Genauigkeit stark abhängig von 
+    - Da die Distanz Messung über Latenzen funktioniert, ist die Genauigkeit abhängig von der Geschwindigkeit der Signale, da sich Elektromagnetische Wellen mit Lichtgeschwindigkeit ausbreiten, ist die Abweichung pro Sekunde 300.000km -> 0,3m pro Nanosekunde:
+        - 1 Nanosekunde: 0,3m
+        - 1 Mikrosekunde: 300m
+        - 1 Millisekunde: 300.000m
+        - 1 Sekunde: 300.000.000m
 
 ### 2.2 Schallbasiertes Tracking
 
 #### 2.2.1 Unterschied zum GPS Tracking
 
+    - Anstatt Elektromagnetischen Wellen verwenden wir Schallwellen (Aubreitungsgeschwindigkeit: 343 m/s)
+
 #### 2.2.2 Vorteile
 
+    - Durch die geringere Ausbreitungsgeschwindigkeit der Schallwellen, gelten hier folgende abweichungsregeln:
+        - 1 Nanosekunde: 3,43e-7
+        - 1 Mikrosekunde: 0,000343m
+        - 1 Millisekunde: 0,343m
+        - 1 Sekunde: 343m
+    - Hierbei verwenden WIR ein herkömliches Mikrofon zur Aufnahme der Schallwellen, welche eine Abtastrate von 50100 Hz hat -> genauigkeit von 0.00622m welches für unsere Zwecke ausreichen genau ist
+
 #### 2.2.3 Nachteile
+
+    Durch die verwendung von Schallwellen, vorallem im Hochfrequenzbereich, klingen die Schallwellen schneller ab, als elektromagnetische Wellen, woraus folgt, dass wir in einem kleinerem und einem großteils freiem umfeld arbeiten müssen
 
 ## 3 Leitfrage (Was ist unsere Leitfrage)
 
@@ -57,11 +72,20 @@ Kurzfassung: Trilateration mit distanzen berechnet von Latenzen von Schallsignal
 
 ### 4.1 Genauigkeit 
 
+    0.00622m 
+
 ### 4.2 Andere Anwendungsbereiche
+
+    Wer braucht diese Genauigkeit? -> 
+    - Roboter
+    - Drohnen
+    - Autonome Fahrzeuge
+
+    KEIN ERSATZ FÜR GPS!!
 
 ## 5 Ausgrenzung (Was ist nicht Teil unseres Themas)
 
-    Wir werden uns nicht mit tieferen Informationen und Prinzipen des GPS Systems beschäftigen, sondern dies nur oberflächlich behandeln.
+    Wir werden uns nicht mit tieferen Informationen und Prinzipen des GPS Systems beschäftigen, sondern dies nur oberflächlich behandeln. Da es für uns eher ein Vergleichsobjekt ist, als ein Teil unseres Projektes.
 
 ## 6 Vorgehen (Wie sind wir vorgegangen)
 
@@ -70,6 +94,10 @@ Kurzfassung: Trilateration mit distanzen berechnet von Latenzen von Schallsignal
 ## 7 Allgeimeines Wissen 
 
 ## 7.1 Mathematische Grundlage
+
+### 7.1.1 Trilateration
+
+    
 
 ## 8 Recherche
  
