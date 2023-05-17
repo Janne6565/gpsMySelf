@@ -8,7 +8,7 @@ from scipy.fftpack import fft
 class AudioListener: 
     
     delay = 2
-    frequency = 10000
+    frequency = 30000
     timePlaying = 2
     velocity = 343
 
@@ -16,8 +16,7 @@ class AudioListener:
     #AUDIO INPUT
     FORMAT = pyaudio.paInt16
     CHANNELS = 1
-    RATE = 50100 # 44100
-    CHUNK = 1024 * 176 # RATE * (timeRecording + delay)
+    RATE = 44100 # 44100
     REALCHUNK = int(1024 / 2)
     timeSoundPlayedAt = -1
     windowSize = 1 / RATE # time between each frame
@@ -34,38 +33,42 @@ class AudioListener:
 
     def threadPlaySound(self, freqsss, timePlay):
         global timeSoundPlayedAt
+        print("Frequency playing: " + str(freqsss))
         time.sleep(self.delay)
         timeSoundPlayedAt = time.time_ns()
         pysine.sine(frequency=freqsss, duration=timePlay)
         print("Sound Played")
 
     def getDistanceToSpeaker(self, FREQUENCYPLAY, TIMEPLAYING, DEBUG, VELOCITY, THRESHHOLD): # Function to calculate Distance from Speaker and Microphone
+
+        chunk = (TIMEPLAYING + self.delay) * self.RATE
+
         frequencyPlayed = int((FREQUENCYPLAY - (FREQUENCYPLAY % (self.RATE / self.REALCHUNK))))
         indexOfFrequency = int((FREQUENCYPLAY - (FREQUENCYPLAY % (self.RATE / self.REALCHUNK))) / (self.RATE/self.REALCHUNK)) # Calculating index of frequency we want to listen to
 
         audio = pyaudio.PyAudio()
         STREAM = audio.open(format=self.FORMAT, channels=self.CHANNELS,
                     rate=self.RATE, input=True,
-                    frames_per_buffer=self.CHUNK, input_device_index=1)
+                    frames_per_buffer=chunk, input_device_index=1)
         
         threadPlayer = Thread(target=self.threadPlaySound, args=((frequencyPlayed, TIMEPLAYING)))
         threadPlayer.start()
 
         print("Start recording")
         timeRecordingStart = time.time_ns() # Messuring recording time
-        hugeChunk = STREAM.read(self.CHUNK)
+        hugeChunk = STREAM.read(chunk)
         self.writeToFile("test.wav", hugeChunk)
         timeRecordingEnd = time.time_ns()
-        print("Chunk Size:", self.CHUNK)
-        print("Estimated time for Chunk:", self.CHUNK / self.RATE)
-        print("Time it took to listen to microphone:", (timeRecordingEnd - timeRecordingStart)* 1e-9)
+        print("Chunk Size:", chunk)
+        print("Estimated time for Chunk:", TIMEPLAYING + self.delay)
+        print("Time it took to listen to microphone:", (timeRecordingEnd - timeRecordingStart) * 1e-9)
         print("End recording")
 
-        timeTillRecordingRealStarted = ((timeRecordingEnd - timeRecordingStart) * 1e-9) - (self.CHUNK / self.RATE)
+        timeTillRecordingRealStarted = ((timeRecordingEnd - timeRecordingStart) * 1e-9) - ((TIMEPLAYING + self.delay))
 
         frameFoundAt = 0
 
-        bar = progressbar.ProgressBar(max_value=self.CHUNK)
+        bar = progressbar.ProgressBar(max_value=chunk)
         
         readData = np.frombuffer(hugeChunk, dtype='h')  # Converting Chunk to readable Chunk
         readData = np.array(readData, dtype='h')/140 + 255
@@ -75,7 +78,7 @@ class AudioListener:
         frameFoundAt = -1
         arr = []
 
-        for i in range(0, self.CHUNK - self.REALCHUNK * 2): # Checking through all sub-chunks, detects first 
+        for i in range(0, (chunk) - self.REALCHUNK * 2): # Checking through all sub-chunks, detects first 
             bar.update(i)
             chunk = readData[i:i+self.REALCHUNK*2]
             realValues = np.abs(fft(chunk)[0:self.REALCHUNK]) * 2 / (128 * self.REALCHUNK)
@@ -114,8 +117,8 @@ class AudioListener:
             print("This is equal to ", (frameItShouldBeOn - frameItIsOn) / self.RATE, " Seconds")
             print("Time we take: ", self.delay * self.RATE)
 
-        #fig.show()
-        #fig.waitforbuttonpress()
+        fig.show()
+        fig.waitforbuttonpress()
         return distance
 
 
@@ -124,6 +127,6 @@ if (__name__ == "__main__"):
     #audio.threadPlaySound(10000, 10)
     arr = []
 
-    a1 = audio.getDistanceToSpeaker(10000, 2, False, 334, 0.00036)
-    a2 = audio.getDistanceToSpeaker(10000, 2, False, 334, 0.00036)
-    print([a1, a2])
+    a1 = audio.getDistanceToSpeaker(10000, 2, True, 343, 0.003)
+    # a2 = audio.getDistanceToSpeaker(10000, 2, False, 343, 0.00036)
+    # print([a1, a2])

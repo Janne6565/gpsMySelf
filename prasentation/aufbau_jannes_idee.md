@@ -4,15 +4,15 @@
 
 ### 1.1 Leistungskurse
 
-Beide Informatik LK, Physik Grundkurs -> Gemeinsamer Physikunterricht -> Schall als Thema
+    Beide Informatik LK, Physik Grundkurs -> Gemeinsamer Physikunterricht -> Schall als Thema
 
 ### 1.2 Jannes Projekt
 
-Jannes Projekt: Soundvisualisierungs Brille; Gescheitert wegen zu schlechten technischen Möglichkeiten -> Übertragung von Konzept auf andere Bereiche -> GPS Tracking -> flache Ebene 2D Simulation
+    Jannes Projekt: Soundvisualisierungs Brille; Gescheitert wegen zu schlechten technischen Möglichkeiten -> Übertragung von Konzept auf andere Bereiche -> GPS Tracking -> flache Ebene 2D Simulation
 
 ## 2 Unser Thema (Was ist unser Thema)
 
-Kurzfassung: Trilateration mit distanzen berechnet von Latenzen von Schallsignalen
+    Kurzfassung: Trilateration mit distanzen berechnet von Latenzen von Schallsignalen
 
 ### 2.1 GPS Tracking 
 
@@ -54,7 +54,7 @@ Kurzfassung: Trilateration mit distanzen berechnet von Latenzen von Schallsignal
 #### 2.2.2 Vorteile
 
     - Durch die geringere Ausbreitungsgeschwindigkeit der Schallwellen, gelten hier folgende abweichungsregeln:
-        - 1 Nanosekunde: 3,43e-7
+        - 1 Nanosekunde: 3,43e-7m
         - 1 Mikrosekunde: 0,000343m
         - 1 Millisekunde: 0,343m
         - 1 Sekunde: 343m
@@ -97,7 +97,18 @@ Kurzfassung: Trilateration mit distanzen berechnet von Latenzen von Schallsignal
 
 ### 7.1.1 Trilateration
 
-    
+    Wir berechnen die Schnittpunkte von 2 von den 3 Kreisen, welche durch die Distanz und die Position der Sateliten entstehen. Nun haben wir 2 Punkte, welche die mögliche Position des Empfängers darstellen. Um nun den richtigen Punkt zu finden, berechnen wir die Distanz von den 2 Punkten zu dem 3. Sateliten. Der Punkt, welcher die Distanz am besten trifft, ist der richtige Punkt. 
+
+    Formel für Schnittpunkte: 
+
+$$ \frac{2 \frac{y_r \left( \frac{r_2^2 - r_1^2 - y_r^2 - x_r^2}{2x_r} \right)}{x_r^2} \pm \sqrt{4\frac{y_r^2 \left( \frac{r_2^2 - r_1^2 - y_r^2 - x_r^2}{2x_r} \right)^2}{x_r^2} - 4 \cdot (1 + \frac{y_r^2}{x_r^2}) \cdot (\left( \frac{r_2^2 - r_1^2 - y_r^2 - x_r^2}{2x_r} \right)^2 - r_1^2)}}{2 + 2\frac{y_r^2}{x_r^2}} = y_{1,2} \\ \\
+$$
+
+$$
+
+\frac{2 \frac{x_r \left( \frac{r_2^2 - r_1^2 - x_r^2 - y_r^2}{2y_r} \right)}{y_r^2} \pm \sqrt{4\frac{x_r^2 \left( \frac{r_2^2 - r_1^2 - x_r^2 - y_r^2}{2y_r} \right)^2}{y_r^2} - 4 \cdot (1 + \frac{x_r^2}{y_r^2}) \cdot (\left( \frac{r_2^2 - r_1^2 - x_r^2 - y_r^2}{2y_r} \right)^2 - r_1^2)}}{2 + 2\frac{x_r^2}{y_r^2}} = x_{1,2}
+
+$$
 
 ## 8 Recherche
  
@@ -107,9 +118,29 @@ Kurzfassung: Trilateration mit distanzen berechnet von Latenzen von Schallsignal
 
 ### 9.1 Ansatz
 
+    Berechnung der Distanzen durch Latenz von Schallwellen: 
+        1. Aufnahme starten
+        2. Schallquelle auslösen
+        3. Aufnahme stoppen
+        4. Sound Analyse durchführen um zu überprüfen, wann der ton das erste mal gespielt wurde
+        5. Aus der Differenz von Start der Schallquelle und der ersten Aufnahme die latenz berechnen
+$$ 
+    latenz_{sekunden} \cdot 343 \frac{m}{s} = distanz_{meter} 
+$$ 
+
 ### 9.2 Umsetzung
 
+    Simultanes Abspielen und Aufnehmen -> Threading
+    Abspielen von Schallwellen -> PySine
+    Aufnehmen von Schallwellen -> PyAudio
+
+    Analyse: 
+        - FFT -> SciPy
+        - First Peak -> Numpy
+
 ### 9.3 Probleme
+
+    Sound Treiber -> Ungenaue Latenz
 
 ### 9.4 Lösungen
 
