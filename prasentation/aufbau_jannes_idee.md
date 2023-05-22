@@ -134,28 +134,46 @@ $$
     Abspielen von Schallwellen -> PySine
     Aufnehmen von Schallwellen -> PyAudio
 
-    Analyse: 
+    Sound-Analyse: 
         - FFT -> SciPy
         - First Peak -> Numpy
 
 ### 9.3 Probleme
 
-    Sound Treiber -> Ungenaue Latenz
+
+    In dieser Fourier Transformation zur Analyse von den gespielten Frequenzen, teilen wir unsere Aufnahme in Chunks ein, welche wir dann einzeln analysieren. Mit einer Samplerate von 44100hz und einer Chunk size 1028 (Werte die wir zusammen untersuchen) hätten wir nur eine Genauigkeit von 0,023s und damit 7,682m was für unsere Zwecke zu ungenau ist.
 
 ### 9.4 Lösungen
 
-## 10 Ergebnisse
+    Um dieses Problem zu umgehen, überprüfen wir nicht die Chunks: 0 - 1028; 1029 - 2057; 2057 - ...
+    Sondern: 0 - 1028; 1 - 1029; 2 - 1030; 3 - 1031; 4 - ...
+    Damit haben wir eine Genauigkeit von 0,00002267s oder 0,00757m
 
-### 10.1 Simulation
 
-### 10.2 Experiment
+## Umsetzung
+
+### 10.1 Experiment
+
+    Wir zeigen Experiement und erklären, dass die Werte nicht akkurat sind. Danach zeigen wir, wie wir es ohne Mikrofon versucht haben um die Latenz zu überprüfen. 
+
+### 10.2 Ergebnisse
+
+    Die werte sind Stark Abhängig von der Latenz der Soundkarte, welche wir nicht beeinflussen können und auch nicht einsehen können. Weswegen es in unserem fall nicht wirklich präzise zu messen ist.
+
+### 10.3 Simulation
+
+    Damit wir unser System testen können, ohne die Latenz der Soundkarte zu berücksichtigen, haben wir eine Simulation geschrieben, welche die Latenz der Soundkarte simuliert.
 
 ## 11 Fazit
 
+    Die Grundlagen unseres Experiments funktionieren, durch unsere Limitation an unser Betriebssystem und die dementsprechenden Treiber können wir jedoch keine präzisen Werte liefern.
+
 ### 11.1 Beantwortung der Leitfrage
 
-### 11.2 Reflexion
+    Ein 
 
-### 11.3 Ausblick
+### 11.2 Ausblick
+
+    - Sinvoll und gut umsetzbar lol
 
 ## 12 Quellen
