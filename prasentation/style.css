@@ -1,0 +1,62 @@
+
+.gliederung ol {
+    counter-reset: item;
+}
+.gliederung li {
+    display: block;
+}
+.gliederung li:before {
+    content: counters(item, ".") " ";
+    counter-increment: item;
+}
+
+p {
+    text-align:center;
+}
+
+#einfuehrung p{
+    text-align: justify;
+}
+
+.reveal h2 {
+    letter-spacing: 1.2px;
+}
+
+.reveal .progress {
+    height: 5px;
+    background-color: transparent;
+}
+
+.reveal .progress > span {
+    background-color: #332b20;
+}
+
+.link {
+    font-weight: 500; 
+    font-size: large; 
+    color: #585754; 
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.listItem {
+    text-align: center;
+}
+
+ul {
+    text-align: center;
+    justify-content: center;
+    width: 50%;
+}
+
+.cite {
+    font-style: italic;
+    filter: drop-shadow(2px 2px 2px gray);
+}
+
+.cite::before {
+    content: "„";
+}
+
+.cite::after {
+    content: "”";
+}
