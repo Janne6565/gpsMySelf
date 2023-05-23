@@ -439,15 +439,15 @@
               height="100"
               style="border: 1px solid #000000"
             ></canvas>
-            <fieldset>
-              <input
-                type="checkbox"
-                name="showIntersections"
-                id="showIntersections"
-              />
-              <label for="showIntersections" style='font-family: "Palatino Linotype", "Book Antiqua", Palatino, FreeSerif, serif'>
-                Schnittpunkte anzeigen
-              </label>
+            <fieldset style="display: flex; justify-content: center; align-items: center">
+              <div class="checkbox-wrapper-8">
+                <input class="tgl tgl-skewed" id="showIntersections" type="checkbox"/>
+                <label class="tgl-btn" data-tg-off="No Int." data-tg-on="Int." for="showIntersections"></label>
+              </div>
+              <div class="checkbox-wrapper-8">
+                <input class="tgl tgl-skewed" id="instantCalculations" type="checkbox"/>
+                <label class="tgl-btn" data-tg-off="Delay" data-tg-on="Instant" for="instantCalculations"></label>
+              </div>
             </fieldset>
           </section>
           <section>
@@ -490,6 +490,9 @@
           <section><h2>Quellen</h2></section>
           <section>
             <h2>Internetquellen</h2>
+            <ul>
+              <li>https://getcssscan.com/css-checkboxes-examples</li>
+            </ul>
           </section>
           <section>
             <h2>Bildquellen</h2>

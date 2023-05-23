@@ -77,11 +77,10 @@ function getCircleIntersections(midOne, midTwo, radiusOne, radiusTwo) {
   return points;
 }
 
-let checkBox = document.getElementById("showIntersections");
-
+let checkBoxIntersections = document.getElementById("showIntersections");
 
 function showIntersections() {
-  return checkBox.checked;
+  return checkBoxIntersections.checked;
 }
 
 let distances = {
@@ -162,6 +161,7 @@ class Satelite {
 
 class Display {
   radius = 15;
+  instant = false;
 
   constructor(simulationCanvasId, controlCanvasId) {
     this.controlDrawer = new Drawer(controlCanvasId);
@@ -263,7 +263,6 @@ class Display {
         20
       );
     }
-    this.markIntersections();
   }
 
   setSatelitePosition(index, x, y) {
@@ -309,9 +308,13 @@ class Display {
 
   update() {
     this.setMaxTime();
+    if (this.instant) {
+      this.time = this.maxTime;
+    }
     this.draw();
     this.setDistances();
     this.setDistances();
+    this.markIntersections();
     this.printInformations();
   }
 
@@ -454,6 +457,12 @@ class Manager {
 
 let display = new Display("simulationCanvas", "controlsCanvas");
 let manager = new Manager("simulationCanvas", "controlsCanvas", display);
-display.update();
 
-checkBox.onclick = (e) => {display.update()};
+checkBoxIntersections.addEventListener("change", () => {display.update();});
+
+let checkboxInstant = document.getElementById("instantCalculations");
+
+checkboxInstant.addEventListener("change", () => {
+  display.instant = checkboxInstant.checked;
+  display.update();
+});
