@@ -422,17 +422,60 @@
 
         <section>
           <section>
-            <h1>Ergebnisse</h1>
+            <h1>Simulation</h1>
+          </section>
+          <section id="simulation">
+            <canvas
+              class="simulationCanvas simulation"
+              style="border: 1px solid #000000"
+              id="simulationCanvas"
+              width="1920"
+              height="800"
+            ></canvas>
+            <canvas
+              class="controlsCanvas"
+              id="controlsCanvas"
+              width="1920"
+              height="100"
+              style="border: 1px solid #000000"
+            ></canvas>
+            <fieldset>
+              <input
+                type="checkbox"
+                name="showIntersections"
+                id="showIntersections"
+              />
+              <label for="showIntersections" style='font-family: "Palatino Linotype", "Book Antiqua", Palatino, FreeSerif, serif'>
+                Schnittpunkte anzeigen
+              </label>
+            </fieldset>
           </section>
           <section>
-            <h2>Simulation auf einer 2D-Ebene</h2>
+            <h1>Berechnung</h1>
           </section>
-          <section style="max-height: 10pc"></section>
+          <section id="results">
+            <div class="fragment">
+              <h2>Positionen:</h2>
+              <div id="positions"></div>
+            </div>
+            <br />
+            <div class="fragment">
+              <h2>Distanzen:</h2>
+              <div id="distances"></div>
+            </div>
+          </section>
           <section>
-            <h2>Experiment</h2>
+            <h2>Ergebnisse</h2>
+            <div class="fragment">
+              <h3>Schnittpunkte von Satellit eins und Satellit zwei</h3>
+              <div id="intersections"></div>
+            </div>
+            <div class="fragment">
+              Schnittpunkt mit geringerer Abweichung:
+              <span id="betterIntersection"></span>
+            </div>
           </section>
         </section>
-
         <section>
           <section><h2>Fazit zur Leitfrage</h2></section>
           <section>
