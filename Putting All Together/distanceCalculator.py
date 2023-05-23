@@ -39,7 +39,14 @@ class AudioListener:
         pysine.sine(frequency=freqsss, duration=timePlay)
         print("Sound Played")
 
-    def getDistanceToSpeaker(self, FREQUENCYPLAY, TIMEPLAYING, DEBUG, VELOCITY, THRESHHOLD): # Function to calculate Distance from Speaker and Microphone
+    e='h')/140 + 255
+
+        indexOfFrequency = int((frequencyPlayed - (frequencyPlayed % (self.RATE / self.REALCHUNK))) / (self.RATE/self.REALCHUNK)) # Calculating index of frequency we want to listen to
+
+        frameFoundAt = -1
+        arr = []
+
+        for i in range(0, (chunk) - self.Rdef getDistanceToSpeaker(self, FREQUENCYPLAY, TIMEPLAYING, DEBUG, VELOCITY, THRESHHOLD): # Function to calculate Distance from Speaker and Microphone
 
         chunk = (TIMEPLAYING + self.delay) * self.RATE
 
@@ -57,8 +64,8 @@ class AudioListener:
         print("Start recording")
         timeRecordingStart = time.time_ns() # Messuring recording time
         hugeChunk = STREAM.read(chunk)
-        self.writeToFile("test.wav", hugeChunk)
         timeRecordingEnd = time.time_ns()
+        self.writeToFile("test.wav", hugeChunk)
         print("Chunk Size:", chunk)
         print("Estimated time for Chunk:", TIMEPLAYING + self.delay)
         print("Time it took to listen to microphone:", (timeRecordingEnd - timeRecordingStart) * 1e-9)
@@ -71,14 +78,7 @@ class AudioListener:
         bar = progressbar.ProgressBar(max_value=chunk)
         
         readData = np.frombuffer(hugeChunk, dtype='h')  # Converting Chunk to readable Chunk
-        readData = np.array(readData, dtype='h')/140 + 255
-
-        indexOfFrequency = int((frequencyPlayed - (frequencyPlayed % (self.RATE / self.REALCHUNK))) / (self.RATE/self.REALCHUNK)) # Calculating index of frequency we want to listen to
-
-        frameFoundAt = -1
-        arr = []
-
-        for i in range(0, (chunk) - self.REALCHUNK * 2): # Checking through all sub-chunks, detects first 
+        readData = np.array(readData, dtypEALCHUNK * 2): # Checking through all sub-chunks, detects first 
             bar.update(i)
             chunk = readData[i:i+self.REALCHUNK*2]
             realValues = np.abs(fft(chunk)[0:self.REALCHUNK]) * 2 / (128 * self.REALCHUNK)
