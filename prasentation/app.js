@@ -381,10 +381,18 @@ class Manager {
     this.displayObject = document.getElementById(displayId);
     this.controler = document.getElementById(controlerId);
 
+    this.controler.addEventListener("mousedown", (e) => {
+      this.handleControlerEvent(e);
+    });
+
     this.controler.addEventListener("mousemove", (e) => {
       if (e.buttons === 1) {
         this.handleControlerEvent(e);
       }
+    });
+
+    this.displayObject.addEventListener("mousedown", (e) => {
+      this.handleDisplayEvent(e);
     });
 
     this.displayObject.addEventListener("mousemove", (e) => {
@@ -392,6 +400,9 @@ class Manager {
         this.handleDisplayEvent(e);
       }
     });
+
+    
+
 
     document.addEventListener("keydown", (e) => {
       if (e.key === "Enter") {
