@@ -20,15 +20,59 @@
       <div class="slides">
         <section>
           <h2>
-            <b>
-              Inwiefern wäre ein schallbasiertes Ortungssystem umsetzbar und
-              nützlich?</b
-            >
+            <b> Ortungssysteme auf einer flachen Ebene </b>
           </h2>
           <h3>Eine Präsentation von Janne K. und David B.</h3>
         </section>
+        <section class="gliederung">
+          <h1>Gliederung</h1>
+
+          <div class="einteilung" style="display: flex">
+            <div style="border: 5px solid black; border-radius: 1pc">
+              <ol>
+                <b>1. Problemstellung</b>
+                <li>GPS</li>
+                <li>Schallbasis</li>
+              </ol>
+            </div>
+
+            <div>
+              <ol>
+                <b>2. Ansatz</b>
+                <li>Recherche</li>
+                <li>mathematische Grundlage</li>
+              </ol>
+            </div>
+
+            <div>
+              <ol>
+                <b>3. Umsetzung</b>
+                <li>Experiment</li>
+                <li>Simulation</li>
+              </ol>
+            </div>
+            <div>
+              <ol>
+                <b>4. Auswertung</b>
+                <li>Fazit</li>
+              </ol>
+            </div>
+
+            <div>
+              <ol>
+                <b>5. Ausblick</b>
+                <li>
+                  Anwendungs- <br />
+                  bereiche
+                </li>
+              </ol>
+            </div>
+          </div>
+        </section>
         <section>
-          <section><h2>Motivation</h2></section>
+          <section>
+            <h1>Motivation</h1>
+          </section>
 
           <section>
             <h2>Leistungskurse</h2>
@@ -36,17 +80,6 @@
 
           <section>
             <h2>Jannes Projekt</h2>
-          </section>
-        </section>
-
-        <section>
-          <section>
-            <h2>Abgrenzung des Themas</h2>
-            <p>
-              Wir werden uns nicht mit tieferen Informationen und Prinzipen des
-              GPS Systems beschäftigen, sondern dies nur oberflächlich
-              behandeln.
-            </p>
           </section>
         </section>
 
@@ -138,13 +171,27 @@
             <h2>Optimierungsansätze</h2>
             <br /><br />
             <h3 class="fragment">
-              Durch anderes Medium geringere Ausbreitungsgeschwindigkeit &rArr;
-              geringere Abweichungen
+              Durch anderes Medium geringere Ausbreitungsgeschwindigkeit <br />
+              <span class="fragment">&rArr; geringere Abweichungen</span>
             </h3>
           </section>
 
           <section>
-            <h2><b>Schallbasiertes Tracking</b></h2>
+            <h2>Abgrenzung des Themas</h2>
+            <ul>
+              <li class="listItem fragment">
+                Verwendung von GPS System nur als Vergleich für unser Projekt
+              </li>
+              <li class="listItem fragment">
+                keine Vertiefung in das Thema GPS
+              </li>
+            </ul>
+          </section>
+
+          <section>
+            <h1>
+              <b>Schallbasiertes Tracking</b>
+            </h1>
           </section>
 
           <section>
@@ -155,20 +202,20 @@
                 <h2></h2>
                 <tr>
                   <th colspan="1"><p></p></th>
-                  <th colspan="1"><p>schallbasiert</p></th>
-                  <th colspan="1"><p>wellenbasiert</p></th>
+                  <th colspan="1"><p>schall</p></th>
+                  <th colspan="1"><p>elektromagnetisch</p></th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td><p>Genauigkeit (191khz)</p></td>
-                  <td><p>0,001796m</p></td>
-                  <td><p>1.569,594m</p></td>
-                </tr>
-                <tr>
+                <tr class="fragment">
                   <td><p>Ausbreitungsgeschwindigkeit</p></td>
                   <td><p>343 m/s</p></td>
                   <td><p>299.792.458 m/s</p></td>
+                </tr>
+                <tr class="fragment">
+                  <td><p>Genauigkeit (191khz)</p></td>
+                  <td><p>0,001796m</p></td>
+                  <td><p>1.569,594m</p></td>
                 </tr>
               </tbody>
             </table>
@@ -439,14 +486,41 @@
               height="100"
               style="border: 1px solid #000000"
             ></canvas>
-            <fieldset style="display: flex; justify-content: center; align-items: center">
+            <fieldset
+              style="
+                display: flex;
+                justify-content: center;
+                align-items: center;
+              "
+            >
               <div class="checkbox-wrapper-8">
-                <input class="tgl tgl-skewed" id="showIntersections" type="checkbox"/>
-                <label class="tgl-btn" data-tg-off="No Int." data-tg-on="Int." for="showIntersections"></label>
+                <input
+                  class="tgl tgl-skewed"
+                  id="showIntersections"
+                  type="checkbox"
+                />
+                <label
+                  class="tgl-btn"
+                  data-tg-off="No Int."
+                  data-tg-on="Int."
+                  for="showIntersections"
+                ></label>
               </div>
               <div class="checkbox-wrapper-8">
-                <input class="tgl tgl-skewed" id="instantCalculations" type="checkbox"/>
-                <label class="tgl-btn" data-tg-off="Delay" data-tg-on="Instant" for="instantCalculations"></label>
+                <input
+                  class="tgl tgl-skewed"
+                  id="instantCalculations"
+                  type="checkbox"
+                />
+                <label
+                  class="tgl-btn"
+                  data-tg-off="Delay"
+                  data-tg-on="Instant"
+                  for="instantCalculations"
+                ></label>
+              </div>
+              <div class="inputFieldWrapper">
+                <input id="velocity" class="inputFieldVelocity" type="text" placeholder="Velocity" value="343" id="velocityInput">
               </div>
             </fieldset>
           </section>
@@ -465,12 +539,34 @@
             </div>
           </section>
           <section>
+            \[ \begin{gather} a = 1 + \frac{y_r^2}{x_r^2} \\ b = - 2
+            \frac{y_r\sigma}{x_r} \\ c = \sigma^2 - r_1^2 \\ \\ \sigma =
+            \frac{r_2^2 - r_1^2 - y_r^2 - x_r^2}{2x_r}\\ \\ \boxed{\frac{2
+            \frac{y_r\sigma}{x_r^2} \pm \sqrt{4\frac{y_r^2\sigma^2}{x_r^2} - 4
+            \cdot (1 + \frac{y_r^2}{x_r^2}) \cdot (\sigma^2 - r_1^2)}}{2 +
+            2\frac{y_r^2}{x_r^2}} = y_{1,2}} \end{gather} \]
+          </section>
+          <section id="calcFiller">
+            \[ \begin{gather} \boxed{ x_{1, 2} = \frac{-({{ xbr }}) \pm \sqrt{
+            ({{xbr}}) ^2 - 4 \cdot ({{xar}}) \cdot ({{xcr}})}} {2 \cdot {{ xar
+            }}} = [<template v-for="(result, index) in resultsX">
+              <template v-if="index > 0">, </template>{{result}}
+            </template>
+            ] } \\ \\ \boxed{ y_{1, 2} = \frac{-({{ ybr }}) \pm \sqrt{ ({{ybr}})
+            ^2 - 4 \cdot ({{yar}}) \cdot ({{ycr}})}} {2 \cdot {{ yar }}} =
+            [<template v-for="(result, index) in resultsY">
+              <template v-if="index > 0">, </template>{{result}}
+            </template>
+            ] } \end{gather} \]
+          </section>
+          <section>
             <h2>Ergebnisse</h2>
-            <div class="fragment">
+            <div>
               <h3>Schnittpunkte von Satellit eins und Satellit zwei</h3>
               <div id="intersections"></div>
             </div>
-            <div class="fragment">
+            <br />
+            <div class="fragment" data-fragment-index="3">
               Schnittpunkt mit geringerer Abweichung:
               <span id="betterIntersection"></span>
             </div>
@@ -478,9 +574,6 @@
         </section>
         <section>
           <section><h2>Fazit zur Leitfrage</h2></section>
-          <section>
-            <h2>Reflexion</h2>
-          </section>
           <section>
             <h2>Ausblick</h2>
           </section>

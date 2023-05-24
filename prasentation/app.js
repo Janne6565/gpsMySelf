@@ -58,6 +58,7 @@ function getCircleIntersections(midOne, midTwo, radiusOne, radiusTwo) {
   c = d ** 2 - r1 ** 2;
 
   x = useABC(a, b, c);
+
   realX = [];
   for (let i in x) {
     let before = x[i];
@@ -84,16 +85,102 @@ function showIntersections() {
 }
 
 let distances = {
+  0: 0,
   1: 0,
   2: 0,
-  3: 0,
 };
 
 let positions = {
+  0: new Point(0, 0),
   1: new Point(0, 0),
   2: new Point(0, 0),
-  3: new Point(0, 0),
 };
+
+let vueFiller = new Vue({
+  el: "#calcFiller",
+  data: {
+    xr: 0,
+    yr: 0,
+    r1: 0,
+    r2: 0,
+    ya: 0,
+    yb: 0,
+    yc: 0,
+    yd: 0,
+    xa: 0,
+    xb: 0,
+    xc: 0,
+    xd: 0,
+    resultsY: [],
+    resultsX: [],
+  },
+  computed: {
+    ydr() {
+      return this.yd.toFixed(2);
+    },
+    yar() {
+      return this.ya.toFixed(2);
+    },
+    ybr() {
+      return this.yb.toFixed(2);
+    },
+    ycr() {
+      return this.yc.toFixed(2);
+    },
+    xdr() {
+      return this.xd.toFixed(2);
+    },
+    xar() {
+      return this.xa.toFixed(2);
+    },
+    xbr() {
+      return this.xb.toFixed(2);
+    },
+    xcr() {
+      return this.xc.toFixed(2);
+    },
+  },
+  methods: {
+    update() {
+      console.log("Updating");
+      this.xr = positions[1].x - positions[0].x;
+      this.yr = positions[1].y - positions[0].y;
+
+      this.r1 = distances[1];
+      this.r2 = distances[0];
+
+      this.yd =
+        (this.r2 ** 2 - this.r1 ** 2 - this.xr ** 2 - this.yr ** 2) /
+        (2 * this.xr);
+
+      this.ya = 1 + this.yr ** 2 / this.xr ** 2;
+
+      this.yb = (-2 * (this.yd * this.yr)) / this.xr;
+
+      this.yc = this.yd ** 2 - this.r1 ** 2;
+
+      let resY = useABC(this.ya, this.yb, this.yc);
+
+      this.resultsY = [];
+      for (let i in resY) {
+        this.resultsY.push((resY[i] + positions[1].y).toFixed(2));
+      }
+
+      this.xd = (this.r2 ** 2 - this.r1 ** 2 - this.xr ** 2 - this.yr ** 2) / (2 * this.yr);
+      this.xa = 1 + this.xr ** 2 / this.yr ** 2;
+      this.xb = (-2 * (this.xd * this.xr)) / this.yr;
+      this.xc = this.xd ** 2 - this.r1 ** 2;
+
+      let resX = useABC(this.xa, this.xb, this.xc);
+
+      this.resultsX = [];
+      for (let i in resX) {
+        this.resultsX.push((resX[i] + positions[1].x).toFixed(2));
+      }
+    },
+  },
+  created() {},
+});
 
 let bestIntersection = undefined;
 
@@ -177,6 +264,11 @@ class Display {
 
     this.setMaxTime();
     this.time = 0;
+    this.update();
+  }
+
+  setVelocity(velocity) {
+    this.velocity = velocity;
     this.update();
   }
 
@@ -316,6 +408,7 @@ class Display {
     this.setDistances();
     this.markIntersections();
     this.printInformations();
+    vueFiller.update();
   }
 
   markIntersections() {
@@ -330,14 +423,17 @@ class Display {
     );
 
     let minDistance = -1;
+    let index = 0;
 
     for (let intersection of intersections) {
       if (showIntersections()) {
         this.simulationDrawer.drawBall(intersection, 5, "black");
       }
-      intersectionDiv.innerHTML += intersection.toString() + "<br>";
-
+      
       let distance = this.distance(intersection, this.satelites[2].position);
+      
+      intersectionDiv.innerHTML +=
+        intersection.toString() + " <span class=\"fragment\" data-fragment-index=\"" + index + "\">&rArr; " + distance.toFixed(2) + "</span><br>";
 
       let offset = Math.abs(distance - distances[2]);
 
@@ -345,6 +441,7 @@ class Display {
         minDistance = offset;
         bestIntersection = intersection;
       }
+      index++;
     }
 
     document.getElementById("betterIntersection").innerHTML =
@@ -464,5 +561,14 @@ let checkboxInstant = document.getElementById("instantCalculations");
 
 checkboxInstant.addEventListener("change", () => {
   display.instant = checkboxInstant.checked;
+  display.update();
+});
+
+let inputVelocity = document.getElementById("velocity");
+
+display.setVelocity(inputVelocity.value);
+inputVelocity.addEventListener("change", () => {
+  console.log(inputVelocity.value);
+  display.setVelocity(inputVelocity.value);
   display.update();
 });
