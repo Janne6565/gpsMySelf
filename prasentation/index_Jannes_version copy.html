@@ -15,6 +15,7 @@
 
     <link rel="stylesheet" href="style.css" />
   </head>
+
   <body>
     <div class="reveal">
       <div class="slides">
@@ -201,21 +202,39 @@
               <thead>
                 <h2></h2>
                 <tr>
-                  <th colspan="1"><p></p></th>
-                  <th colspan="1"><p>schall</p></th>
-                  <th colspan="1"><p>elektromagnetisch</p></th>
+                  <th colspan="1">
+                    <p></p>
+                  </th>
+                  <th colspan="1">
+                    <p>schall</p>
+                  </th>
+                  <th colspan="1">
+                    <p>elektromagnetisch</p>
+                  </th>
                 </tr>
               </thead>
               <tbody>
                 <tr class="fragment">
-                  <td><p>Ausbreitungsgeschwindigkeit</p></td>
-                  <td><p>343 m/s</p></td>
-                  <td><p>299.792.458 m/s</p></td>
+                  <td>
+                    <p>Ausbreitungsgeschwindigkeit</p>
+                  </td>
+                  <td>
+                    <p>343 m/s</p>
+                  </td>
+                  <td>
+                    <p>299.792.458 m/s</p>
+                  </td>
                 </tr>
                 <tr class="fragment">
-                  <td><p>Genauigkeit (191khz)</p></td>
-                  <td><p>0,001796m</p></td>
-                  <td><p>1.569,594m</p></td>
+                  <td>
+                    <p>Genauigkeit (191khz)</p>
+                  </td>
+                  <td>
+                    <p>0,001796m</p>
+                  </td>
+                  <td>
+                    <p>1.569,594m</p>
+                  </td>
                 </tr>
               </tbody>
             </table>
@@ -520,7 +539,14 @@
                 ></label>
               </div>
               <div class="inputFieldWrapper">
-                <input id="velocity" class="inputFieldVelocity" type="text" placeholder="Velocity" value="343" id="velocityInput">
+                <input
+                  id="velocity"
+                  class="inputFieldVelocity"
+                  type="text"
+                  placeholder="Velocity"
+                  value="343"
+                  id="velocityInput"
+                />
               </div>
             </fieldset>
           </section>
@@ -546,24 +572,15 @@
             \cdot (1 + \frac{y_r^2}{x_r^2}) \cdot (\sigma^2 - r_1^2)}}{2 +
             2\frac{y_r^2}{x_r^2}} = y_{1,2}} \end{gather} \]
           </section>
-          <section id="calcFiller">
-            \[ \begin{gather} \boxed{ x_{1, 2} = \frac{-({{ xbr }}) \pm \sqrt{
-            ({{xbr}}) ^2 - 4 \cdot ({{xar}}) \cdot ({{xcr}})}} {2 \cdot {{ xar
-            }}} = [<template v-for="(result, index) in resultsX">
-              <template v-if="index > 0">, </template>{{result}}
-            </template>
-            ] } \\ \\ \boxed{ y_{1, 2} = \frac{-({{ ybr }}) \pm \sqrt{ ({{ybr}})
-            ^2 - 4 \cdot ({{yar}}) \cdot ({{ycr}})}} {2 \cdot {{ yar }}} =
-            [<template v-for="(result, index) in resultsY">
-              <template v-if="index > 0">, </template>{{result}}
-            </template>
-            ] } \end{gather} \]
-          </section>
+          <section id="calcFiller"></section>
           <section>
             <h2>Ergebnisse</h2>
             <div>
               <h3>Schnittpunkte von Satellit eins und Satellit zwei</h3>
-              <div id="intersections"></div>
+              <div id="intersections">
+                <span class="fragment" data-fragment-index="1"></span>
+                <span class="fragment" data-fragment-index="2"></span>
+              </div>
             </div>
             <br />
             <div class="fragment" data-fragment-index="3">
@@ -573,14 +590,18 @@
           </section>
         </section>
         <section>
-          <section><h2>Fazit zur Leitfrage</h2></section>
+          <section>
+            <h2>Fazit zur Leitfrage</h2>
+          </section>
           <section>
             <h2>Ausblick</h2>
           </section>
         </section>
 
         <section>
-          <section><h2>Quellen</h2></section>
+          <section>
+            <h2>Quellen</h2>
+          </section>
           <section>
             <h2>Internetquellen</h2>
             <ul>

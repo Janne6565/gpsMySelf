@@ -96,92 +96,6 @@ let positions = {
   2: new Point(0, 0),
 };
 
-let vueFiller = new Vue({
-  el: "#calcFiller",
-  data: {
-    xr: 0,
-    yr: 0,
-    r1: 0,
-    r2: 0,
-    ya: 0,
-    yb: 0,
-    yc: 0,
-    yd: 0,
-    xa: 0,
-    xb: 0,
-    xc: 0,
-    xd: 0,
-    resultsY: [],
-    resultsX: [],
-  },
-  computed: {
-    ydr() {
-      return this.yd.toFixed(2);
-    },
-    yar() {
-      return this.ya.toFixed(2);
-    },
-    ybr() {
-      return this.yb.toFixed(2);
-    },
-    ycr() {
-      return this.yc.toFixed(2);
-    },
-    xdr() {
-      return this.xd.toFixed(2);
-    },
-    xar() {
-      return this.xa.toFixed(2);
-    },
-    xbr() {
-      return this.xb.toFixed(2);
-    },
-    xcr() {
-      return this.xc.toFixed(2);
-    },
-  },
-  methods: {
-    update() {
-      console.log("Updating");
-      this.xr = positions[1].x - positions[0].x;
-      this.yr = positions[1].y - positions[0].y;
-
-      this.r1 = distances[1];
-      this.r2 = distances[0];
-
-      this.yd =
-        (this.r2 ** 2 - this.r1 ** 2 - this.xr ** 2 - this.yr ** 2) /
-        (2 * this.xr);
-
-      this.ya = 1 + this.yr ** 2 / this.xr ** 2;
-
-      this.yb = (-2 * (this.yd * this.yr)) / this.xr;
-
-      this.yc = this.yd ** 2 - this.r1 ** 2;
-
-      let resY = useABC(this.ya, this.yb, this.yc);
-
-      this.resultsY = [];
-      for (let i in resY) {
-        this.resultsY.push((resY[i] + positions[1].y).toFixed(2));
-      }
-
-      this.xd = (this.r2 ** 2 - this.r1 ** 2 - this.xr ** 2 - this.yr ** 2) / (2 * this.yr);
-      this.xa = 1 + this.xr ** 2 / this.yr ** 2;
-      this.xb = (-2 * (this.xd * this.xr)) / this.yr;
-      this.xc = this.xd ** 2 - this.r1 ** 2;
-
-      let resX = useABC(this.xa, this.xb, this.xc);
-
-      this.resultsX = [];
-      for (let i in resX) {
-        this.resultsX.push((resX[i] + positions[1].x).toFixed(2));
-      }
-    },
-  },
-  created() {},
-});
-
 let bestIntersection = undefined;
 
 class Drawer {
@@ -396,6 +310,88 @@ class Display {
       distancesDiv.innerHTML +=
         "Satelite " + sat + " : " + distances[sat].toFixed(2) + "<br>";
     }
+
+    let xr = positions[1].x - positions[0].x;
+    let yr = positions[1].y - positions[0].y;
+
+    let r1 = distances[1];
+    let r2 = distances[0];
+
+    let yd = (r2 ** 2 - r1 ** 2 - xr ** 2 - yr ** 2) / (2 * xr);
+
+    let ya = 1 + yr ** 2 / xr ** 2;
+
+    let yb = (-2 * (yd * yr)) / xr;
+
+    let yc = yd ** 2 - r1 ** 2;
+
+    let resY = useABC(ya, yb, yc);
+
+    let resultsY = [];
+    for (let i in resY) {
+      resultsY.push((resY[i] + positions[1].y).toFixed(2));
+    }
+
+    let xd = (r2 ** 2 - r1 ** 2 - xr ** 2 - yr ** 2) / (2 * yr);
+    let xa = 1 + xr ** 2 / yr ** 2;
+    let xb = (-2 * (xd * xr)) / yr;
+    let xc = xd ** 2 - r1 ** 2;
+
+    let resX = useABC(xa, xb, xc);
+
+    let resultsX = [];
+
+    for (let i in resX) {
+      resultsX.push((resX[i] + positions[1].x).toFixed(2));
+    }
+
+    let string =
+      `
+      \\[ \\begin{gather} \\boxed{ x_{1, 2} = \\frac{-( ` +
+      xb.toFixed(2) +
+      `) \\pm \\sqrt{(` +
+      xb.toFixed(2) +
+      `) ^2 - 4 \\cdot (` +
+      xa.toFixed(2) +
+      `) \\cdot (` +
+      xc.toFixed(2) +
+      `)}} {2 \\cdot ` +
+      xa.toFixed(2) +
+      `} = [`;
+
+    let index = 0;
+    for (let i in resultsX) {
+      if (index !== 0) {
+        string += ", ";
+      }
+      string += resultsX[i];
+      index++;
+    }
+
+    string +=
+      `] } \\\\ \\\\ \\boxed{ y_{1, 2} = \\frac{-(` +
+      yb.toFixed(2) +
+      `) \\pm \\sqrt{ (` +
+      yb.toFixed(2) +
+      `)^2 - 4 \\cdot (` +
+      ya.toFixed(2) +
+      `) \\cdot (` +
+      yc.toFixed(2) +
+      `)}} {2 \\cdot ` +
+      ya.toFixed(2) +
+      `} = [`;
+
+    index = 0;
+    for (let i in resultsY) {
+      if (index !== 0) {
+        string += ", ";
+      }
+      string += resultsY[i];
+      index++;
+    }
+    string += `] } \\end{gather} \\]`;
+
+    document.getElementById("calcFiller").innerHTML = string;
   }
 
   update() {
@@ -408,7 +404,6 @@ class Display {
     this.setDistances();
     this.markIntersections();
     this.printInformations();
-    vueFiller.update();
   }
 
   markIntersections() {
@@ -429,11 +424,16 @@ class Display {
       if (showIntersections()) {
         this.simulationDrawer.drawBall(intersection, 5, "black");
       }
-      
+
       let distance = this.distance(intersection, this.satelites[2].position);
-      
+
       intersectionDiv.innerHTML +=
-        intersection.toString() + " <span class=\"fragment\" data-fragment-index=\"" + index + "\">&rArr; " + distance.toFixed(2) + "</span><br>";
+        intersection.toString() +
+        ' <span class="fragment" data-fragment-index="' +
+        index +
+        '">&rArr; ' +
+        distance.toFixed(2) +
+        "</span><br>";
 
       let offset = Math.abs(distance - distances[2]);
 
@@ -501,9 +501,6 @@ class Manager {
       }
     });
 
-    
-
-
     document.addEventListener("keydown", (e) => {
       if (e.key === "Enter") {
         if (this.display.time === this.display.maxTime) {
@@ -555,7 +552,14 @@ class Manager {
 let display = new Display("simulationCanvas", "controlsCanvas");
 let manager = new Manager("simulationCanvas", "controlsCanvas", display);
 
-checkBoxIntersections.addEventListener("change", () => {display.update();});
+let inputVelocity = document.getElementById("velocity");
+
+display.setVelocity(inputVelocity.value);
+display.update();
+
+checkBoxIntersections.addEventListener("change", () => {
+  display.update();
+});
 
 let checkboxInstant = document.getElementById("instantCalculations");
 
@@ -564,11 +568,20 @@ checkboxInstant.addEventListener("change", () => {
   display.update();
 });
 
-let inputVelocity = document.getElementById("velocity");
+inputVelocity.addEventListener("input", (e) => {
+  let newValue = "";
 
-display.setVelocity(inputVelocity.value);
-inputVelocity.addEventListener("change", () => {
-  console.log(inputVelocity.value);
+  for (let letter of inputVelocity.value) {
+    if (!isNaN(letter) || letter === ".") {
+      newValue += letter;
+    }
+  }
+
+  inputVelocity.value = newValue;
+
+  if (isNaN(inputVelocity.value)) {
+    return;
+  }
   display.setVelocity(inputVelocity.value);
   display.update();
 });

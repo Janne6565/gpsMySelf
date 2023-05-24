@@ -240,6 +240,7 @@ fieldset>* {
     height: 5pc;
     width: 10pc;
     transition: all ease .2s;
+    text-align: center;
 }
 
 
