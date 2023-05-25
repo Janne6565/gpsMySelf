@@ -329,7 +329,7 @@ class Display {
 
     let resultsY = [];
     for (let i in resY) {
-      resultsY.push((resY[i] + positions[1].y).toFixed(2));
+      resultsY.push((resY[i] + positions[1].y).toFixed(0));
     }
 
     let xd = (r2 ** 2 - r1 ** 2 - xr ** 2 - yr ** 2) / (2 * yr);
@@ -342,7 +342,7 @@ class Display {
     let resultsX = [];
 
     for (let i in resX) {
-      resultsX.push((resX[i] + positions[1].x).toFixed(2));
+      resultsX.push((resX[i] + positions[1].x).toFixed(0));
     }
 
     let string =
@@ -389,9 +389,16 @@ class Display {
       string += resultsY[i];
       index++;
     }
-    string += `] } \\end{gather} \\]`;
+    string += `] } \\\\ \\\\`
+
+    string += `p_{1, 2} = [(` + resultsX[0] + ", " + resultsY[0] + `), (` + resultsX[1] + ", " + resultsY[1] + `)]`
+
+    string += `\\end{gather} \\]`;
+
 
     document.getElementById("calcFiller").innerHTML = string;
+
+    document.getElementById("radiusWanted").innerHTML = distances[2].toFixed(2);
   }
 
   update() {

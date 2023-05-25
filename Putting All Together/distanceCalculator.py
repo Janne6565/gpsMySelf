@@ -7,7 +7,7 @@ from scipy.fftpack import fft
 
 class AudioListener: 
     
-    delay = 2
+    delay = 3
     frequency = 30000
     timePlaying = 2
     velocity = 343
@@ -39,14 +39,7 @@ class AudioListener:
         pysine.sine(frequency=freqsss, duration=timePlay)
         print("Sound Played")
 
-    e='h')/140 + 255
-
-        indexOfFrequency = int((frequencyPlayed - (frequencyPlayed % (self.RATE / self.REALCHUNK))) / (self.RATE/self.REALCHUNK)) # Calculating index of frequency we want to listen to
-
-        frameFoundAt = -1
-        arr = []
-
-        for i in range(0, (chunk) - self.Rdef getDistanceToSpeaker(self, FREQUENCYPLAY, TIMEPLAYING, DEBUG, VELOCITY, THRESHHOLD): # Function to calculate Distance from Speaker and Microphone
+    def getDistanceToSpeaker(self, FREQUENCYPLAY, TIMEPLAYING, DEBUG, VELOCITY, THRESHHOLD): # Function to calculate Distance from Speaker and Microphone
 
         chunk = (TIMEPLAYING + self.delay) * self.RATE
 
@@ -65,6 +58,7 @@ class AudioListener:
         timeRecordingStart = time.time_ns() # Messuring recording time
         hugeChunk = STREAM.read(chunk)
         timeRecordingEnd = time.time_ns()
+
         self.writeToFile("test.wav", hugeChunk)
         print("Chunk Size:", chunk)
         print("Estimated time for Chunk:", TIMEPLAYING + self.delay)
@@ -78,7 +72,14 @@ class AudioListener:
         bar = progressbar.ProgressBar(max_value=chunk)
         
         readData = np.frombuffer(hugeChunk, dtype='h')  # Converting Chunk to readable Chunk
-        readData = np.array(readData, dtypEALCHUNK * 2): # Checking through all sub-chunks, detects first 
+        readData = np.array(readData, dtype='h')/140 + 255
+
+        indexOfFrequency = int((frequencyPlayed - (frequencyPlayed % (self.RATE / self.REALCHUNK))) / (self.RATE/self.REALCHUNK)) # Calculating index of frequency we want to listen to
+
+        frameFoundAt = -1
+        arr = []
+
+        for i in range(0, (chunk) - self.REALCHUNK * 2): # Checking through all sub-chunks, detects first 
             bar.update(i)
             chunk = readData[i:i+self.REALCHUNK*2]
             realValues = np.abs(fft(chunk)[0:self.REALCHUNK]) * 2 / (128 * self.REALCHUNK)
@@ -127,6 +128,6 @@ if (__name__ == "__main__"):
     #audio.threadPlaySound(10000, 10)
     arr = []
 
-    a1 = audio.getDistanceToSpeaker(10000, 2, True, 343, 0.003)
+    a1 = audio.getDistanceToSpeaker(10000, 2, True, 343, 0.0003)
     # a2 = audio.getDistanceToSpeaker(10000, 2, False, 343, 0.00036)
     # print([a1, a2])

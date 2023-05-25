@@ -620,9 +620,12 @@
                 <span class="fragment" data-fragment-index="1"></span>
                 <span class="fragment" data-fragment-index="2"></span>
               </div>
+              <div class="radiusWanted">
+                Radius R3: <span id="radiusWanted" class="fragment" data-fragment-index="3">test</span>
+              </div>
             </div>
             <br />
-            <div class="fragment" data-fragment-index="3">
+            <div class="fragment" data-fragment-index="4">
               Schnittpunkt mit geringerer Abweichung:
               <span id="betterIntersection"></span>
             </div>
@@ -670,6 +673,7 @@
       // - https://revealjs.com/initialization/
       // - https://revealjs.com/config/
       Reveal.initialize({
+        // transition: 'fade',
         width: 1920,
         height: 1080,
         hash: true,
@@ -690,6 +694,7 @@
               toc_progress.initialize();
               toc_progress.create();
             },
+
           },
         ],
       });

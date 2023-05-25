@@ -197,7 +197,6 @@
 
 
 							\ \boxed{\frac{-(-r_2^2 + r_1^2 + 2yy_r +y_r^2 + x_r^2)}{2x_r} = x} \\
-
 						\end{gather}\]
 					</section>
 					<section>
@@ -485,9 +484,10 @@
 				// Learn about plugins: https://revealjs.com/plugins/
 				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes, RevealMath, toc_progress],
 				dependencies:
-					[
+				[
 					{ src: 'plugin/toc-progress/toc-progress.js', async: true, callback: function() { toc_progress.initialize(); toc_progress.create(); } }
-				]
+				],
+				backgroundTransition: 'fade-in'
 			});
 
 		</script>
