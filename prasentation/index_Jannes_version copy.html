@@ -129,7 +129,8 @@
             <h1>Trilateration</h1>
             <br />
             <h3 class="cite fragment">
-              Berechnungsverfahren zur Positionsbestimmung eines Punktes,<br> durch die Zeitunterschiede der Signale.
+              Berechnungsverfahren zur Positionsbestimmung eines Punktes,<br />
+              durch die Zeitunterschiede der Signale.
             </h3>
           </section>
 
@@ -296,48 +297,77 @@
           </section>
         </section>
 
-		<section>
-			<section>
-			  <h1>Recherche</h1>
-			  <p>Darstellung der Methodik</p>
-			</section>
-			<section data-transition="fade-in fade-out"><h1>Trilateration</h1></section>
-			<section data-transition="fade-in fade-out">
-				<figure>
-				  <img src="img/tri1.png" style="height: 40pc; border: 0.5pc solid black; border-radius: 1pc;" />
-				  
-				</figure>
-			  </section>
-	
-			  <section data-transition="fade-in fade-out">
-				<figure>
-				  <img src="img/tri2.png" style="height: 40pc; border: 0.5pc solid black; border-radius: 1pc;" />
-				 
-				</figure>
-			  </section>
-	
-			  <section data-transition="fade-in fade-out">
-				<figure>
-				  <img src="img/tri3.png" style="height: 40pc; border: 0.5pc solid black; border-radius: 1pc;" />
-				 
-				</figure>
-			  </section>
-			  <section>
-				<h2>Fourier Transformation</h2>
-				<figure>
-				  <img
-					src="./img/fft1.png"
-					style="height: 40pc; border: gray 2px solid"
-				  />
-				  <figcaption class="link">
-					https://www.nti-audio.com/ [25.05.2023 - 11:24
-					Uhr]
-				  </figcaption>
-				</figure>
-			  </section>
-		  </section>
+        <section>
+          <section>
+            <h1>Recherche</h1>
+            <p>Darstellung der Methodik</p>
+          </section>
+          <section data-transition="fade-in fade-out">
+            <h1>Trilateration</h1>
+          </section>
+          <section data-transition="fade-in fade-out">
+            <figure>
+              <img
+                src="img/tri1.png"
+                style="
+                  height: 40pc;
+                  border: 0.5pc solid black;
+                  border-radius: 1pc;
+                "
+              />
+            </figure>
+          </section>
 
-		
+          <section data-transition="fade-in fade-out">
+            <figure>
+              <img
+                src="img/tri2.png"
+                style="
+                  height: 40pc;
+                  border: 0.5pc solid black;
+                  border-radius: 1pc;
+                "
+              />
+            </figure>
+          </section>
+
+          <section data-transition="fade-in fade-out">
+            <figure>
+              <img
+                src="img/tri3.png"
+                style="
+                  height: 40pc;
+                  border: 0.5pc solid black;
+                  border-radius: 1pc;
+                "
+              />
+            </figure>
+          </section>
+          <section>
+            <h2>Fourier Transformation</h2>
+            <figure>
+              <img
+                src="./img/fft1.png"
+                style="height: 40pc; border: gray 2px solid"
+              />
+              <figcaption class="link">
+                https://www.nti-audio.com/ [25.05.2023 - 11:24 Uhr]
+              </figcaption>
+            </figure>
+          </section>
+          <section>
+            <figure>
+              <img
+                src="./img/fourierTransform.png"
+                style="height: 40pc; border: gray 2px solid"
+              />
+              <figcaption class="link">
+                https://www.youtube.com/watch?v=spUNpyF58BY [23.05.2023 - 16:53
+                Uhr]
+              </figcaption>
+            </figure>
+          </section>
+        </section>
 
         <section>
           <section>
@@ -346,15 +376,15 @@
           </section>
 
           <section>
+            <h2>Schnittpunkte von 2 Kreisen</h2>
+          </section>
+
+          <section>
             <div style="display: flex; justify-content: center; gap: 20%">
               <div>
-                \[\begin{gather} \text{Sateliten:} \\ \\ p_1 = (x_1; y_1) \\ p_2
-                = (x_2; y_2) \\ \\ p_r = (x_2 - x_1; y_2 - y_1) \\ \\
-                \end{gather} \]
-              </div>
-              <div>
-                \[\begin{gather} \text{Kreise:} \\ \\ x^2 + y^2 = r_1^2 \\ (x +
-                x_r)^2 + (y+y_r)^2 = r_2^2 \\ \end{gather} \]
+                \[\begin{gather}\\ \\ p_1 = (x_1; y_1) \\ p_2 = (x_2; y_2) \\
+                p_r = (x_2 - x_1; y_2 - y_1) \\ \\ \\ \\ x^2 + y^2 = r_1^2 \\ (x
+                + x_r)^2 + (y+y_r)^2 = r_2^2 \\ \end{gather} \]
               </div>
             </div>
           </section>
@@ -408,32 +438,28 @@
             \frac{r_2^2 - r_1^2 - y_r^2 - x_r^2}{2x_r} \right)^2}{x_r^2} - 4
             \cdot (1 + \frac{y_r^2}{x_r^2}) \cdot (\left( \frac{r_2^2 - r_1^2 -
             y_r^2 - x_r^2}{2x_r} \right)^2 - r_1^2)}}{2 + 2\frac{y_r^2}{x_r^2}}
-            = y_{1,2}} \\ \\ \end{gather}\]
-          </section>
-        </section>
-
-        <section>
-          <section>
-            <h1>Mathematische Grundlage</h1>
-            <h2>Fourier Transformation</h2>
+            = y_{1,2}} \\ \\ \boxed{\frac{2 \frac{x_r \left( \frac{r_2^2 - r_1^2
+            - x_r^2 - y_r^2}{2y_r} \right)}{y_r^2} \pm \sqrt{4\frac{x_r^2 \left(
+            \frac{r_2^2 - r_1^2 - x_r^2 - y_r^2}{2y_r} \right)^2}{y_r^2} - 4
+            \cdot (1 + \frac{x_r^2}{y_r^2}) \cdot (\left( \frac{r_2^2 - r_1^2 -
+            x_r^2 - y_r^2}{2y_r} \right)^2 - r_1^2)}}{2 + 2\frac{x_r^2}{y_r^2}}
+            = x_{1,2}} \end{gather}\]
           </section>
 
           <section>
-            <h2>Fourier Transformation</h2>
-            <figure>
-              <img
-                src="./img/fourierTransform.png"
-                style="height: 40pc; border: gray 2px solid"
-              />
-              <figcaption class="link">
-                https://www.youtube.com/watch?v=spUNpyF58BY [23.05.2023 - 16:53
-                Uhr]
-              </figcaption>
-            </figure>
+            <h2>Schnittpunkt Abgleich</h2>
+            <br />
+            <ul>
+              <li class="listItem fragment">
+                gemessene Distanz zwischen Satelit und Empfänger <br />
+                &rArr; Distanz zwischen Satelit und Schnittpunkten
+              </li>
+              <li class="listItem fragment">
+                Schnittpunkt mit geringerer Abweichung
+              </li>
+            </ul>
           </section>
         </section>
-
-      
 
         <section>
           <section>
@@ -487,7 +513,7 @@
                 \[ \begin{gather} t_r = t_p - delay \end{gather} \] (delay = 2s)
               </li>
               <li class="listItem fragment">
-                \[ \begin{gather} s_r = \frac{t_r}{343 \frac{m}{s}} \end{gather}
+                \[ \begin{gather} s_r = t_r \cdot 343 \frac{m}{s} \end{gather}
                 \]
               </li>
             </ol>
@@ -499,6 +525,120 @@
             </figure>
           </section>
         </section>
+
+        <section>
+          <section>
+            <h1>Ergebnisse</h1>
+          </section>
+
+          <section data-transition="fade-out">
+            <figure>
+              <img
+                src="img/imgRes1.png"
+                style="
+                  height: 60pc;
+                  border: 0.5pc solid black;
+                  border-radius: 1pc;
+                "
+              />
+            </figure>
+          </section>
+
+          <section data-transition="fade-in">
+            <figure>
+              <img
+                src="img/imgRes2.png"
+                style="
+                  height: 60pc;
+                  border: 0.5pc solid black;
+                  border-radius: 1pc;
+                "
+              />
+            </figure>
+          </section>
+          <section>
+            <figure>
+              <img
+                src="img/imgAbweichung.png"
+                style="
+                  height: 30pc;
+                  border: 0.5pc solid black;
+                  border-radius: 1pc;
+                "
+              />
+              <img
+                src="img/imgAbweichung2.png"
+                style="
+                  height: 30pc;
+                  border: 0.5pc solid black;
+                  border-radius: 1pc;
+                "
+              />
+            </figure>
+          </section>
+          <section>
+            <pre style="width: 40pc">
+              <code class="language-python" data-line-numbers="0|8, 10">{
+    'index': 1,
+    'structVersion': 2,
+    'name': 'Mikrofonarray (5- USB PnP Audio)',
+    'hostApi': 0,
+    'maxInputChannels': 2,
+    'maxOutputChannels': 0,
+    'defaultLowInputLatency': 0.09,
+    'defaultLowOutputLatency': 0.09,
+    'defaultHighInputLatency': 0.18,
+    'defaultHighOutputLatency': 0.18,
+    'defaultSampleRate': 44100.0
+}</code>
+            </pre>
+          </section>
+          <section>
+            \[ \begin{gather} \text{delay} = [0.09s; 0.18s] \\ \text{abweichung}
+            = [0.09s \cdot 343 \frac{m}{s}; 0.18s \cdot 343 \frac{m}{s}] =
+            [30.87m; 61.74m] \\ \end{gather} \]
+          </section>
+          <section>
+            <figure>
+              <img
+                src="img/imgAbweichung.png"
+                style="
+                  height: 30pc;
+                  border: 0.5pc solid black;
+                  border-radius: 1pc;
+                "
+              />
+              <img
+                src="img/imgAbweichung2.png"
+                style="
+                  height: 30pc;
+                  border: 0.5pc solid black;
+                  border-radius: 1pc;
+                "
+              />
+            </figure>
+          </section>
+          <section>
+            <pre style="width: 40pc">
+              <code class="language-python" data-line-numbers="0|8, 10">{
+'index': 19,
+'structVersion': 2,
+'name': 'Realtek HD Audio 2nd output', 
+'hostApi': 0, 
+'maxInputChannels': 0, 
+'maxOutputChannels': 2, 
+'defaultLowInputLatency': 0.09, 
+'defaultLowOutputLatency': 0.09,
+'defaultHighInputLatency': 0.18,
+'defaultHighOutputLatency': 0.18,
+'defaultSampleRate': 44100.0
+}
+              </code>
+            
+            </pre>
+          </section>
+        </section>
+
         <section>
           <section>
             <h1>Probleme</h1>
@@ -616,16 +756,23 @@
             <h2>Ergebnisse</h2>
             <div>
               <h3>Schnittpunkte von Satellit eins und Satellit zwei</h3>
-              <div id="intersections">
-                <span class="fragment" data-fragment-index="1"></span>
-                <span class="fragment" data-fragment-index="2"></span>
-              </div>
               <div class="radiusWanted">
-                Radius R3: <span id="radiusWanted" class="fragment" data-fragment-index="3">test</span>
+                Radius R3:
+                <span id="radiusWanted" class="fragment" data-fragment-index="1"
+                  >test</span
+                >
+              </div>
+              <div id="intersections">
+                <span class="fragment" data-fragment-index="2">
+                  <span class="fragment" data-fragment-index="4"></span>
+                </span>
+                <span class="fragment" data-fragment-index="3">
+                  <span class="fragment" data-fragment-index="5"></span>
+                </span>
               </div>
             </div>
             <br />
-            <div class="fragment" data-fragment-index="4">
+            <div class="fragment" data-fragment-index="6">
               Schnittpunkt mit geringerer Abweichung:
               <span id="betterIntersection"></span>
             </div>
@@ -694,7 +841,6 @@
               toc_progress.initialize();
               toc_progress.create();
             },
-
           },
         ],
       });

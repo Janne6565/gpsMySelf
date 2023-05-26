@@ -264,7 +264,7 @@ class Display {
 
       this.controlDrawer.drawString(
         new Point((percentage - 0.04) * 100, 59, this.controlDrawer),
-        (distance / this.velocity).toFixed(2),
+        (distance / this.velocity).toFixed(2) + "s",
         satelite.color,
         20
       );
@@ -389,12 +389,20 @@ class Display {
       string += resultsY[i];
       index++;
     }
-    string += `] } \\\\ \\\\`
+    string += `] } \\\\ \\\\`;
 
-    string += `p_{1, 2} = [(` + resultsX[0] + ", " + resultsY[0] + `), (` + resultsX[1] + ", " + resultsY[1] + `)]`
+    string +=
+      `p_{1, 2} = [(` +
+      resultsX[0] +
+      ", " +
+      resultsY[0] +
+      `), (` +
+      resultsX[1] +
+      ", " +
+      resultsY[1] +
+      `)]`;
 
     string += `\\end{gather} \\]`;
-
 
     document.getElementById("calcFiller").innerHTML = string;
 
@@ -407,7 +415,6 @@ class Display {
       this.time = this.maxTime;
     }
     this.draw();
-    this.setDistances();
     this.setDistances();
     this.markIntersections();
     this.printInformations();
@@ -434,15 +441,18 @@ class Display {
 
       let distance = this.distance(intersection, this.satelites[2].position);
 
-      intersectionDiv.innerHTML +=
-        intersection.toString() +
-        ' <span class="fragment" data-fragment-index="' +
-        index +
-        '">&rArr; ' +
-        distance.toFixed(2) +
-        "</span><br>";
-
       let offset = Math.abs(distance - distances[2]);
+
+      intersectionDiv.innerHTML +=
+        ' <span class="fragment" data-fragment-index="' +
+        (index + 1) +
+        '">' + intersection.toString() + '&rArr; Abstand: ' +
+        distance.toFixed(2) +
+        '</span> <span class="fragment" data-fragment-index="' +
+        (index + intersections.length + 1) +
+        '">&rArr; ' +
+        offset +
+        "</span><br>";
 
       if (minDistance === -1 || offset < minDistance) {
         minDistance = offset;
@@ -579,16 +589,20 @@ inputVelocity.addEventListener("input", (e) => {
   let newValue = "";
 
   for (let letter of inputVelocity.value) {
-    if (!isNaN(letter) || letter === ".") {
-      newValue += letter;
+    if ((!isNaN(letter) && letter !== " ") || letter === ".") {
+      console.log(letter);
+      newValue += String(letter);
     }
   }
 
-  inputVelocity.value = newValue;
+  display.setVelocity(newValue);
+
+  inputVelocity.value = newValue + " m/s";
 
   if (isNaN(inputVelocity.value)) {
     return;
   }
-  display.setVelocity(inputVelocity.value);
   display.update();
 });
+
+inputVelocity.value = display.velocity + " m/s";
