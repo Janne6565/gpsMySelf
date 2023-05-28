@@ -308,7 +308,7 @@ class Display {
       positionsDiv.innerHTML +=
         "Satelite " + sat + " : " + satelite.position.toString() + "<br>";
       distancesDiv.innerHTML +=
-        "Satelite " + sat + " : " + distances[sat].toFixed(2) + "<br>";
+        "Satelite " + sat + ": " + (distances[sat] / this.velocity).toFixed(2) + "s &middot; " + this.velocity + " m/s &rArr; " + distances[sat].toFixed(2) + "m<br>";
     }
 
     let xr = positions[1].x - positions[0].x;

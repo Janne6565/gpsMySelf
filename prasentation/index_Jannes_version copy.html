@@ -174,7 +174,9 @@
             <br /><br />
             <h3 class="fragment">
               Durch anderes Medium geringere Ausbreitungsgeschwindigkeit <br />
-              <span class="fragment">&rArr; geringere Abweichungen</span>
+              <span class="fragment"
+                >&rArr; geringere Abweichungen bei gleicher Sample Rate</span
+              >
             </h3>
           </section>
 
@@ -382,9 +384,18 @@
           <section>
             <div style="display: flex; justify-content: center; gap: 20%">
               <div>
-                \[\begin{gather}\\ \\ p_1 = (x_1; y_1) \\ p_2 = (x_2; y_2) \\
-                p_r = (x_2 - x_1; y_2 - y_1) \\ \\ \\ \\ x^2 + y^2 = r_1^2 \\ (x
-                + x_r)^2 + (y+y_r)^2 = r_2^2 \\ \end{gather} \]
+                \[\begin{gather} \\ \\ p_1 = (x_1; y_1); \text{ distanz} = r_1
+                \\ p_2 = (x_2; y_2); \text{ distanz} = r_2 \\ \\ \end{gather}\]
+
+                <span class="fragment">
+                  \[ \begin{gather} p_r = (x_2 - x_1; y_2 - y_1) \\ \\
+                  \end{gather} \]
+                </span>
+
+                <span class="fragment">
+                  \[\begin{gather} \\ x^2 + y^2 = r_1^2 \\ (x + x_r)^2 +
+                  (y+y_r)^2 = r_2^2 \\ \end{gather}\]
+                </span>
               </div>
             </div>
           </section>
@@ -443,7 +454,8 @@
             \frac{r_2^2 - r_1^2 - x_r^2 - y_r^2}{2y_r} \right)^2}{y_r^2} - 4
             \cdot (1 + \frac{x_r^2}{y_r^2}) \cdot (\left( \frac{r_2^2 - r_1^2 -
             x_r^2 - y_r^2}{2y_r} \right)^2 - r_1^2)}}{2 + 2\frac{x_r^2}{y_r^2}}
-            = x_{1,2}} \end{gather}\]
+            = x_{1,2}} \\ \\ \boxed{\text{Schnittpunkte} = {(x_1, y_1), (x_2,
+            y_2)}} \end{gather}\]
           </section>
 
           <section>
@@ -474,9 +486,12 @@
           <section>
             <h2>Durchführung</h2>
             <ol>
-              <li class="listItem fragment">Mikrofon Startet aufnahme</li>
+              <li class="listItem fragment">Mikrofon startet Aufnahme</li>
               <li class="listItem fragment">2 Sekunden warten</li>
-              <li class="listItem fragment">Lautsprecher spielen frequenz</li>
+              <li class="listItem fragment">
+                Lautsprecher spielen Ton mit fester (jeweils unterschiedlicher)
+                Frequenz
+              </li>
               <li class="listItem fragment">2 Sekunden warten</li>
               <li class="listItem fragment">Aufnahme beenden</li>
             </ol>
@@ -486,7 +501,7 @@
             <h2>Berechnung I</h2>
             <ol style="width: 80%">
               <li class="listItem fragment">
-                iterieren über die länge der Aufnahme in "Frames" <br />
+                iterieren über die Länge der Aufnahme in "Frames" <br />
                 (Dauer der Aufnahme / Sample Rate)
               </li>
               <li class="listItem fragment">
@@ -494,7 +509,7 @@
                 Size}] \]
               </li>
               <li class="listItem fragment">
-                Fourier Transformation über Interval &rArr; lautstärke der
+                Fourier Transformation über Interval &rArr; Lautstärke der
                 gespielten Frequenzen
               </li>
               <br />
@@ -594,9 +609,9 @@
             </pre>
           </section>
           <section>
-            \[ \begin{gather} \text{delay} = [0.09s; 0.18s] \\ \text{abweichung}
-            = [0.09s \cdot 343 \frac{m}{s}; 0.18s \cdot 343 \frac{m}{s}] =
-            [30.87m; 61.74m] \\ \end{gather} \]
+            \[ \begin{gather} \text{delay}_{aufnahme} = [0.09s; 0.18s] \\
+            \text{abweichung}_{aufnahme} = [0.09s \cdot 343 \frac{m}{s}; 0.18s
+            \cdot 343 \frac{m}{s}] = [30.87m; 61.74m] \\ \end{gather} \]
           </section>
           <section>
             <figure>
@@ -621,21 +636,49 @@
           <section>
             <pre style="width: 40pc">
               <code class="language-python" data-line-numbers="0|8, 10">{
-'index': 19,
-'structVersion': 2,
-'name': 'Realtek HD Audio 2nd output', 
-'hostApi': 0, 
-'maxInputChannels': 0, 
-'maxOutputChannels': 2, 
-'defaultLowInputLatency': 0.09, 
-'defaultLowOutputLatency': 0.09,
-'defaultHighInputLatency': 0.18,
-'defaultHighOutputLatency': 0.18,
-'defaultSampleRate': 44100.0
-}
-              </code>
-            
+  'index': 19,
+  'structVersion': 2,
+  'name': 'Realtek HD Audio 2nd output', 
+  'hostApi': 0, 
+  'maxInputChannels': 0, 
+  'maxOutputChannels': 2, 
+  'defaultLowInputLatency': 0.09, 
+  'defaultLowOutputLatency': 0.09,
+  'defaultHighInputLatency': 0.18,
+  'defaultHighOutputLatency': 0.18,
+  'defaultSampleRate': 44100.0
+}</code>
             </pre>
+          </section>
+
+          <section>
+            \[ \begin{gather} \text{delay}_{abspielen} = [0.09s; 0.18s] \\
+            \text{abweichung}_{abspielen} = [0.09s \cdot 343 \frac{m}{s}; 0.18s
+            \cdot 343 \frac{m}{s}] = [30.87m; 61.74m] \\ \\ \end{gather} \]
+          </section>
+
+          <section>
+            \[ 
+            \begin{gather}
+              \text{abweichung}_{gesamt-minimal} = min(\text{abweichung}_{abspielen}) - max(\text{abweichung}_{aufnahme}) \\
+              \text{abweichung}_{gesamt-minimal} = 30.87m - 61.74m = - 30.87m \\ \\
+              \text{abweichung}_{gesamt-maximal} = max(\text{abweichung}_{abspielen}) - min(\text{abweichung}_{aufnahme}) \\
+              \text{abweichung}_{gesamt-maximal} = 61.74m - 30.87m = 30.87m \\
+            \end{gather} 
+            \]
+          </section>
+
+          <section>
+            <figure>
+              <img
+                src="img/imgAbweichung2.png"
+                style="
+                  height: 30pc;
+                  border: 0.5pc solid black;
+                  border-radius: 1pc;
+                "
+              />
+            </figure>
           </section>
         </section>
 
