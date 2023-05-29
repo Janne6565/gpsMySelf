@@ -249,7 +249,7 @@
             <h2>Abgrenzung des Themas</h2>
             <ul>
               <li class="listItem fragment">
-                Verwendung von GPS System nur als Vergleich für unser Projekt
+                Verwendung von GPS nur als Vergleich für unser Projekt
               </li>
               <li class="listItem fragment">
                 keine Vertiefung in das Thema GPS
@@ -498,9 +498,7 @@
 
           <section>
             <h2>Distanz zu Punkt</h2>
-            <h3 class="fragment">
-              \[(x - x_r)^2 + (y - y_r)^2 = r^2\]
-            </h3>
+            <h3 class="fragment">\[(x - x_r)^2 + (y - y_r)^2 = r^2\]</h3>
           </section>
 
           <section>
@@ -649,8 +647,8 @@
             \frac{r_2^2 - r_1^2 - x_r^2 - y_r^2}{2y_r} \right)^2}{y_r^2} - 4
             \cdot (1 + \frac{x_r^2}{y_r^2}) \cdot (\left( \frac{r_2^2 - r_1^2 -
             x_r^2 - y_r^2}{2y_r} \right)^2 - r_1^2)}}{2 + 2\frac{x_r^2}{y_r^2}}
-            = x_{1,2}} \\ \\ \boxed{\text{Schnittpunkte} = {(x_1 + x_b, y_1 + y_b), (x_2 + x_b,
-            y_2 + x_b)}} \end{gather}\]
+            = x_{1,2}} \\ \\ \boxed{\text{Schnittpunkte} = {(x_1 + x_b, y_1 +
+            y_b), (x_2 + x_b, y_2 + x_b)}} \end{gather}\]
           </section>
 
           <section>
@@ -966,12 +964,13 @@
                   id="velocityInput"
                 />
               </div>
+              <a href="#/results/5">Ergebnisse</a>
             </fieldset>
           </section>
           <section>
             <h1>Berechnung</h1>
           </section>
-          <section id="results">
+          <section>
             <div class="fragment">
               <h2>Positionen:</h2>
               <div id="positions"></div>
@@ -991,15 +990,17 @@
             2\frac{y_r^2}{x_r^2}} = y_{1,2}} \end{gather} \]
           </section>
           <section id="calcFiller"></section>
-          <section>
+          <section id="results">
             <h2>Ergebnisse</h2>
             <div>
               <h3>Schnittpunkte von Satellit eins und Satellit zwei</h3>
               <div class="radiusWanted">
                 Radius R3:
-                <span id="radiusWanted" class="fragment" data-fragment-index="1"
-                  >test</span
-                >
+                <span
+                  id="radiusWanted"
+                  class="fragment"
+                  data-fragment-index="1"
+                ></span>
               </div>
               <div id="intersections">
                 <span class="fragment" data-fragment-index="2">
@@ -1015,6 +1016,8 @@
               Schnittpunkt mit geringerer Abweichung:
               <span id="betterIntersection"></span>
             </div>
+            <br />
+            <a href="#/simulation">Simulation</a>
           </section>
         </section>
         <section>
