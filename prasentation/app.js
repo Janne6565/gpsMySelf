@@ -364,12 +364,37 @@ class Display {
       if (index !== 0) {
         string += ", ";
       }
-      string += resultsX[i];
+      string += resX[i].toFixed(2);
+      index++;
+    }
+
+    string += `] } \\\\ \\\\`;
+      
+    string += `x_{real} = [x_1 + x_{sat}, x_2 + x_{sat}] = [`;
+
+    index = 0;
+    for (let i in resultsX) {
+      if (index !== 0) {
+        string += ", ";
+      }
+      string +=
+        String(resX[i].toFixed(2)) + " + " + String(positions[1].x.toFixed(2));
+      index++;
+    }
+
+    string += `] = [`;
+
+    index = 0;
+    for (let i in resultsX) {
+      if (index !== 0) {
+        string += ", ";
+      }
+      string += String((resX[i] + positions[1].x).toFixed(2));
       index++;
     }
 
     string +=
-      `] } \\\\ \\\\ \\boxed{ y_{1, 2} = \\frac{-(` +
+      `]\\\\ \\\\ \\\\ \\boxed{ y_{1, 2} = \\frac{-(` +
       yb.toFixed(2) +
       `) \\pm \\sqrt{ (` +
       yb.toFixed(2) +
@@ -382,14 +407,41 @@ class Display {
       `} = [`;
 
     index = 0;
+    for (let i in resY) {
+      if (index !== 0) {
+        string += ", ";
+      }
+      string += resY[i].toFixed(2);
+      index++;
+    }
+    string += `] } \\\\ \\\\`;
+
+     
+    string += `y_{real} = [y_1 + y_{sat}, y_2 + y_{sat}] = [`;
+
+    index = 0;
     for (let i in resultsY) {
       if (index !== 0) {
         string += ", ";
       }
-      string += resultsY[i];
+      string +=
+        String(resY[i].toFixed(2)) + " + " + String(positions[1].y.toFixed(2));
       index++;
     }
-    string += `] } \\\\ \\\\`;
+
+    string += `] = [`;
+
+    index = 0;
+    for (let i in resultsY) {
+      if (index !== 0) {
+        string += ", ";
+      }
+      string += String((resY[i] + positions[1].y).toFixed(2));
+      index++;
+    }
+
+    string += `]\\\\ \\\\`;
+    
 
     string +=
       `p_{1, 2} = [(` +
