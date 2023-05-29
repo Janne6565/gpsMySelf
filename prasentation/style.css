@@ -254,3 +254,8 @@ fieldset>* {
 .inputFieldWrapper > input::placeholder {
     color: rgba(0, 0, 0, 0.4);
 }
+
+.sources {
+    width: 80%;
+    font-size: 25px;
+}
