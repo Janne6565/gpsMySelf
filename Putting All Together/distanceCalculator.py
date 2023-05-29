@@ -125,9 +125,5 @@ class AudioListener:
 
 if (__name__ == "__main__"):
     audio = AudioListener()
-    #audio.threadPlaySound(10000, 10)
-    arr = []
 
-    a1 = audio.getDistanceToSpeaker(10000, 2, True, 343, 0.0003)
-    # a2 = audio.getDistanceToSpeaker(10000, 2, False, 343, 0.00036)
-    # print([a1, a2])
+    a1 = audio.getDistanceToSpeaker(10000, 2, True, 343, 0.003)
