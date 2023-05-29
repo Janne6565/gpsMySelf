@@ -539,7 +539,6 @@
             </figure>
           </section>
 
-          
           <section>
             <figure>
               <img
@@ -588,7 +587,7 @@
               </div>
             </div>
           </section>
-          <section data-transition="fade-in fade-out">
+          <section>
             \[\begin{gather} \ (x^2 + 2xx_r + x_r^2) + (y^2 + 2yy_r + y_r^2) -
             (x^2 + y^2) = r_2^2 - r_1^2 \\ \ 2xx_r + x_r^2 + 2yy_r + y_r^2 =
             r_2^2 - r_1^2 &amp;| - (r_2^2 - r_1^2) \\ \\ \ 2xx_r + x_r^2 + 2yy_r
@@ -1066,7 +1065,9 @@
           RevealMarkdown,
           RevealHighlight,
           RevealNotes,
-          RevealMath,
+          // RevealMath,
+          // RevealMath.KaTeX,
+          RevealMath.MathJax2,
           toc_progress,
         ],
         dependencies: [
@@ -1079,6 +1080,19 @@
             },
           },
         ],
+        mathjax3: {
+          mathjax:
+            "https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js",
+          tex: {
+            inlineMath: [
+              ["$", "$"],
+              ["\\(", "\\)"],
+            ],
+          },
+          options: {
+            skipHtmlTags: ["script", "noscript", "style", "textarea", "pre"],
+          },
+        },
       });
     </script>
 
