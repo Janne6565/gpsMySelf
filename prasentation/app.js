@@ -458,7 +458,7 @@ class Display {
 
     document.getElementById("calcFiller").innerHTML = string;
 
-    document.getElementById("radiusWanted").innerHTML = distances[2].toFixed(2);
+    document.getElementById("radiusWanted").innerHTML = distances[2].toFixed(2) + "m";
   }
 
   update() {
@@ -500,11 +500,11 @@ class Display {
         (index + 1) +
         '">' + intersection.toString() + '&rArr; Abstand: ' +
         distance.toFixed(2) +
-        '</span> <span class="fragment" data-fragment-index="' +
+        'm</span> <span class="fragment" data-fragment-index="' +
         (index + intersections.length + 1) +
         '">&rArr; ' +
         offset +
-        "</span><br>";
+        "m</span><br>";
 
       if (minDistance === -1 || offset < minDistance) {
         minDistance = offset;
