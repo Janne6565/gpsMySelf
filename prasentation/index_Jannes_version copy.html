@@ -743,7 +743,7 @@
         <section>
           <h2>Durchführung</h2>
           <ol>
-            <li class="listItem fragment">Mikrofon startet Aufnahme</li>
+            <li class="listItem fragment">Aufnahme durch Mikrofon startet</li>
             <li class="listItem fragment">2 Sekunden warten</li>
             <li class="listItem fragment">
               Lautsprecher spielen Ton mit fester (jeweils unterschiedlicher)
@@ -1023,25 +1023,116 @@
           <a href="#/simulation">Simulation</a>
         </section>
       </section>
+
       <section>
         <section>
-          <h2>Fazit zur Leitfrage</h2>
+          <h1>Fazit</h1>
         </section>
+
         <section>
-          <h2>Ausblick</h2>
+          <h2 class="cite">
+            Inwiefern wäre ein schallbasiertes Ortungssystem umsetzbar und
+            nützlich?
+          </h2>
+        </section>
+
+        <section>
+          <h1>
+            Umsetzbarkeit
+          </h1>
+        </section>
+
+        <section>
+          <h2>
+            Funktionierendes Grundsystem
+          </h2>
+
+          <ul>
+            <li class="listItem fragment">
+              starke Einschränkungen in der Praxis
+            </li>
+            <li class="listItem fragment">
+              Störgeräusche und Reflexionen
+            </li>
+            <li class="listItem fragment">
+              Distanz-Einschränkung durch Luftreibung und Hindernisse
+            </li>
+          </ul>
+        </section>
+
+        <section>
+          <h1>
+            Nützlichkeit
+          </h1>
+          <h4 class="fragment">
+            Hohe Genauigkeit
+          </h4>
+        </section>
+
+        <section>
+          <h2>Ursprüngliche Anwendungsbeispiele</h2>
+        </section>
+
+        <section>
+          <h3>Autonomes Fahren</h3>
+          <br>
+          <ul>
+            <li class="listItem fragment">
+              Doppler-Effekt durch Bewegung der Autos mit unbekannter Geschwindigkeit
+            </li>
+            <li class="listItem fragment">
+              starke störgeräusche durch andere Autos, Straßenlärm und Gegenwind
+            </li>
+          </ul>
+          <br>
+          <br>
+          <h4 class="fragment">&rArr; nicht anwendbar</h4>
+        </section>
+
+        <section>
+          <h3>Staubsaugroboter</h3>
+          <br>
+          <ul>
+            <li class="listItem fragment">
+              durch geringe Geschwindigkeit Doppler-Effekt vernachlässigbar
+            </li>
+            <li class="listItem fragment">
+              Positionsbestimmung basierend auf Nachverfolgung von Bewegungen
+            </li>
+            <li class="listItem fragment">
+              Präzision nicht umbedingt benötigt
+            </li>
+          </ul>
         </section>
       </section>
 
       <section>
         <section>
-          <h2>Quellen</h2>
+          <h1>Ausblick</h1>
+        </section>
+        <section>
+          <h2>Experiment</h2>
+          <ul>
+            <li class="listItem fragment">
+              weiterführung auf anderer Platform
+            </li>
+            <li class="listItem fragment">
+              optimierung der Genauigkeit durch bessere Hardware und Trilaterationsverfahren mit mehrfachen Satelliten
+            </li>
+            <li class="listItem fragment">
+              optimierung der Laufzeit durch implementierung in C und implementierung von "Binärer Suche"
+            </li>
+          </ul>
+        </section>
+      </section>
+
+      <section>
+        <section>
+          <h1>Quellen</h1>
         </section>
         <section>
           <h2>Internetquellen</h2>
           <ul class="sources">
-            <li>https://getcssscan.com/css-checkboxes-examples [24-05-2023 15:00 Uhr]</li>
-            <li>https://home.uni-leipzig.de/jtrommer/phonetik07/k2b.pdf [04-03-2023 16:00 Uhr]</li>
-            </li>
             <li>
               https://www.chemie.de/lexikon/Funkwelle.html [16-10-2022 16:10 Uhr]
             </li>
@@ -1107,6 +1198,12 @@
             <li>
               https://www.hs-albsig.de/fileadmin/user_upload/hsas/02_organisationseinheiten/studentische_abteilung/downloads/formulare/eigenstaendigkeitserklaerung_20190117.pdf
               [10-05-2023 18:30 Uhr]
+            </li>
+            <li>
+              https://home.uni-leipzig.de/jtrommer/phonetik07/k2b.pdf [04-03-2023 16:00 Uhr]
+            </li>
+            <li>
+              https://getcssscan.com/css-checkboxes-examples [24-05-2023 15:00 Uhr]
             </li>
           </ul>
         </section>
@@ -1177,8 +1274,6 @@
         RevealMarkdown,
         RevealHighlight,
         RevealNotes,
-        // RevealMath,
-        // RevealMath.KaTeX,
         RevealMath.MathJax2,
         toc_progress,
       ],
