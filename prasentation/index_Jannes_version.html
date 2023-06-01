@@ -40,13 +40,28 @@
 				letter-spacing: 1.2px;
 			}
 
+			.reveal .progress {
+				height: 5px;
+				background-color: transparent;
+			}
+			
+			.reveal .progress > span {
+				background-color: #332b20;
+			}
+
+			.link {
+				font-weight: 500; 
+				font-size: large; 
+				color: #585754; 
+				font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+			}
+
 		</style>
 	</head>
 	<body>
 
 		<div class="reveal">
 			<div class="slides"> 
-
 				<section>
 					<h2>Inwiefern wäre ein schallbasiertes Ortungssystem umsetzbar und nützlich?</h2>
 					<h3>Eine Präsentation von Janne K. und David B.</h3>
@@ -100,103 +115,72 @@
 
 				<section id="einfuehrung">
 					<section>
-					
-					<h2>Einführung in die Motivation</h2>
-					<div style="-webkit-columns: 2; margin-left: 10pc; margin-right: 10pc;">
-						<ul>
-							<li><p>Heutzutage wird das GPS überall <br> auf der ganzen Welt benutzt </p> </li>
-							<li><p>konventionelle Ortungssysteme arbeiten <br> mit elektromagnetischen Radiowellen <br> die mit Lichtgeschwindigkeit sich ausbreiten</p></li>
-							<li><p>funktioniert mit einer Genauigkeit <br> von 5 - 10 Meter</p></li>
-						</ul>
-					<br>
-						<p style="text-align: center;"> <b> Verwendungszwecke: </b>
-						<ul>
-						<li>Navigation</li>
-						<li>Verfolgung</li>
-						<li>Kartografierung</li>
-						<li>Zeitmessung</li>
-						<li>Positionsbestimmung</li>
-								
-						</ul>
-					</p>
-
-					</div>
-				</section>
-					
-					<section>
-					
-						<h2 style="text-align: center;">Wieso Schallwellen?</h2>
-						<p style="text-align: center;"> <ul> <li>Mikrofon mit erkennt eine Frequenz mit einer Abtastrate von 100.000Hz</li></ul> </p>
-						<p style="text-align: center; border-color: black;" >=> in der Theorie könnte ein schallbasiertes Ortungssystem, <br>	eine Präzision von ca. 0,003 Metern aufzeigen, <br> welches im Vergleich zum GPS 10.000 Mal genauer ist</p>
-						
+						<h1>Einführung</h1>
 					</section>
-				
+					<section>
+						<h1>GPS</h1>
+						<h2>
+							<b>G</b>lobal <b>P</b>ositioning <b>S</b>ystem
+						</h2>
+					</section>
+					<section>
+						<h2 style="font-weight: 500">Funktionsweise</h2>
+						<br><br>
+						<h3 style="font-style:italic;">
+							&bdquo;Errechnet Position durch Trilaterationsverfahren mit Distanzen berechnet durch Latenzen von elektromagnetischen Signalen gesendet von Sateliten&rdquo;
+						</h3>
+					</section>
 				</section>
-				
-				
 				
 				<section>
 					<section>
-						<h2>Wie funktioniert GPS-Tracking?
-						</h2>
-						<ul>
-						<p>GPS steht für <b>G</b>lobal <b>P</b>ositioning <b>S</b>ystem</p>
-					
-						<li>ist ein Satellitennavigationssystem, das die genaue Position auf der Erdoberfläche bestimmt	</li>
-						<li>basiert auf einem Netzwerk von Satelliten, die um die Erde kreisen					</li>
-						<br>
-						<ul><li>Satelliten senden ständig Signale aus, die von GPS-Empfängern auf der Erde empfangen werden</li>	
-							<li>GPS-Empfänger empfängt Signale von mehreren Satelliten gleichzeitig						</li>
-							<li>jeder Satellit sendet Informationen über seine Position und die genaue Zeit				</li>
-							=> GPS-Empfänger verwendet diese Informationen, um die genaue Position zu berechnen			</li>
-						</ul>
-					</ul>
+						<h1>Trilateration</h1><br>
+						<h3 style="font-style:italic;">
+							&bdquo;Messverfahren zur Positionsbestimmung eines Punktes.&rdquo;
+						</h3>
 					</section>
 					<section>
-						<h2>Triangulation</h2>
-						<p>Triangulation ist die Methode zur Ortsbestimmung durch Messung an den Winkeln.</p>
-						<div style="-webkit-columns: 1; ">
-							<!--
-							<figure>
-							<img src="img/Triangulation-boat.png"  > <figcaption style="font-size: large;">Abb.  Triangulation [Svjo, CC BY-SA 4.0, WIKIMEDIA]</figcaption>
-							</figure>
-							-->
-							<figure>
-							<img src="img/triangulation.jpeg" style="height:30pc"> <figcaption style="font-size: large;">https://education.nationalgeographic.org/resource/triangulation-sized/</figcaption>
-							</figure>
-						</div>
-					</section>
-					<section>
-						<h2>Trilateration</h2>
-						<p>Trilateration ist die Methode zur Ortsbestimmung durch Messung der Zeitunterschiede.</p>
 						<figure>
-						<img  src="img/trilateration.png" > <figcaption style="font-size: large;"> Abb. Trilateration auf einer 2D Fläche mit zwei Ankerpunkten [Angel De Castro - Researchgate]</figcaption>
+							<img src="img/trilateration-2.png" style="height: 40pc"> <figcaption class="link">https://de.wikipedia.org/wiki/Datei:Trilateration.png</figcaption>
 						</figure>
+					</section>
+					<section>
+						<figure>
+							<img src="img/trilateration-3d.png" style="height: 40pc"> <figcaption class="link">https://de.wikipedia.org/wiki/Datei:Trilateration.png</figcaption>
+							</figure>
 					</section>
 				</section>
 
 				<section> 
 					<section> 
-						<h2>Trilateration mit Schallwellen</h2>
+						<h1>Trilateration</h1>
 					</section>
 					<section>
-						<h1>Konzept</h1>
-						<p>Satelliten:</p>
-						\[\begin{gather}
-
-							p_1 = (x_1; y_1) \\
-
-							p_2 = (x_2; y_2) \\ \\
-
-							p_r = (x_2 - x_1; y_2 - y_1) \\ \\
-
-							x^2 + y^2 = r_1^2 \\
-
-							(x + x_r)^2 + (y+y_r)^2 = r_2^2 \\
-
-							\\ \\
-
-						\end{gather} \]
+						<h2>Konzept</h2>
+							<br>
+						<div style="display: flex; justify-content: center; gap: 20%;">
+							<div>
+								\[\begin{gather}
+									\text{Sateliten:} \\ \\
+		
+									p_1 = (x_1; y_1) \\
+		
+									p_2 = (x_2; y_2) \\ \\
+		
+									p_r = (x_2 - x_1; y_2 - y_1) \\ \\
+		
+								\end{gather} \]
+							</div>
+							<div>
+								\[\begin{gather}
+									\text{Kreise:} \\ \\
+		
+									x^2 + y^2 = r_1^2 \\
+		
+									(x + x_r)^2 + (y+y_r)^2 = r_2^2 \\
+								\end{gather} \]
+							</div>
+						</div>
 					</section>
 
 					<section>
@@ -213,7 +197,6 @@
 
 
 							\ \boxed{\frac{-(-r_2^2 + r_1^2 + 2yy_r +y_r^2 + x_r^2)}{2x_r} = x} \\
-
 						\end{gather}\]
 					</section>
 					<section>
@@ -222,7 +205,7 @@
 
 						\[\begin{gather}
 							
-							\ x = \frac{r_2^2 - r_1^2 \boxed{-2yy_r} - y_r^2 - x_r^2}{\boxed{2x_r}} = \frac{\boxed{-2yy_r}}{\boxed{2x_r}} + \underbrace{\frac{r_2^2 - r_1^2 - y_r^2 - x_r^2}{2x_r}}_{\sigma}\\
+							\ x = \frac{r_2^2 - r_1^2 \boxed{-2yy_r} - y_r^2 - x_r^2}{\boxed{2x_r}} = \frac{\boxed{-2yy_r}}{\boxed{2x_r}} + \underbrace{\frac{r_2^2 - r_1^2 - y_r^2 - x_r^2}{2x_r}}_{\sigma}\\	
 
 							\ \sigma = \frac{r_2^2 - r_1^2 - y_r^2 - x_r^2}{2x_r} \\
 							\\
@@ -245,7 +228,7 @@
 
 							\ \frac{y_r^2}{x_r^2}y^2 -2 \frac{y_r\sigma}{x_r} y + \sigma^2 + y^2 = r_1^2 \\ \\
 
-							\ \boxed{(1 + \frac{y_r^2}{x_r^2}) y^2 + (- 2 \frac{y_r\sigma}{x_r})y + (\sigma^2 - r_1^2) = 0} \\	
+							\ \boxed{(1 + \frac{y_r^2}{x_r^2}) y^2 + (- 2 \frac{y_r\sigma}{x_r})y + (\sigma^2 - r_1^2) = 0} 
 						
 						\end{gather} \]
 					</section>
@@ -293,7 +276,6 @@
 					</section>
 
 					<section>
-
 						<pre style="height: 50vh;"><code style="height: 100%;" class="language-python" data-line-numbers data-ln-start-from="1">def testNewCalculation(c1, c2): 
 	xr = c1[0][0] - c2[0][0]
 	yr = c1[0][1] - c2[0][1]
@@ -322,42 +304,9 @@
 	x = useABC(a, b, c, False)
 
 	return (x, y)
-						</code></pre>
-					</section>
-
-					</section>
-
-				<!-- useless :/	
-					<section>
-						
-						\[\begin{gather}
-							
-						\boxed{ \delta = \frac{r_2^2-r_1^2-y_1^2-x_1^2}{2y_1}} \\
-						\\
-								=> y_1/y_2 = \frac{
-													2\frac{\sigma y_1}{x_1}
-													\pm\sqrt{
-														4\frac{\sigma y_1^2}
-														{x_1^2}-8\sigma-8r_1^2}
-								}{4} \\
-						\\
-						\boxed{\sigma = \frac{r_2^2-r_1^2-y_1^2-x_1^2}{2x_1}}
-						\\
-						\\
-						=> y_1/y_2 = \frac{
-											2\frac{\delta y_1}{x_1}
-											\pm\sqrt{
-												4\frac{\delta y_1^2}
-												{x_1^2}-8\delta-8r_1^2}
-						}{4} \\
-						\\
-						\end{gather} \]
-
-					</section>
-					-->	
+					</code></pre>
 				</section>
 
-				<section>
 					<section>
 						<h2>Simulation auf einer 2D-Ebene</h2>
 					</section>
@@ -531,13 +480,14 @@
 				width: 1920,
 				height: 1080,
 				hash: true,
-				slideNumber: 'c/t',
+				// slideNumber: 'c/t',
 				// Learn about plugins: https://revealjs.com/plugins/
-				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes, RevealMath, toc_progress, RevealMenu],
+				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes, RevealMath, toc_progress],
 				dependencies:
-					[
+				[
 					{ src: 'plugin/toc-progress/toc-progress.js', async: true, callback: function() { toc_progress.initialize(); toc_progress.create(); } }
-				]
+				],
+				backgroundTransition: 'fade-in'
 			});
 
 		</script>
